@@ -1,17 +1,18 @@
 <template>
-  <footer class="w-full flex justify-center items-center bg-blue text-white py-4 text-center h-16">
+  <footer class="w-full flex justify-center items-center bg-blue text-white py-4">
     <div class="flex items-center">
-      <span>2024 | Developed by <b>Roberto de Moraes Zarzur</b></span>
-      <a href="https://github.com/Rdemora2" target="_blank" rel="noopener noreferrer">
-        <svg class="w-5 h-5 inline-block ml-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <span class="text-sm sm:text-base md:text-lg lg:text-xl xl:text-xl">
+        2024 | Developed by <b>Roberto de Moraes Zarzur</b>
+      </span>
+      <a href="https://github.com/Rdemora2" target="_blank" rel="noopener noreferrer" class="ml-3 md:ml-4">
+        <svg class="w-5 h-5 inline-block" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path d="M12 .297c-6.627 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.11.82-.258.82-.577 0-.285-.01-1.042-.015-2.05-3.338.724-4.042-1.5-4.042-1.5-.546-1.384-1.333-1.755-1.333-1.755-1.088-.743.083-.728.083-.728 1.205.085 1.838 1.237 1.838 1.237 1.07 1.835 2.807 1.305 3.493.998.108-.775.417-1.305.76-1.605-2.665-.307-5.466-1.332-5.466-5.93 0-1.31.468-2.38 1.237-3.22-.124-.307-.536-1.523.117-3.176 0 0 1.007-.322 3.3 1.232a11.532 11.532 0 0 1 3-.405c1.018.007 2.04.136 3 .405 2.29-1.554 3.295-1.232 3.295-1.232.657 1.653.244 2.869.12 3.176.77.84 1.235 1.91 1.235 3.22 0 4.61-2.805 5.62-5.475 5.92.43.372.815 1.104.815 2.22 0 1.604-.015 2.896-.015 3.286 0 .32.215.694.825.576C20.565 22.095 24 17.598 24 12.297c0-6.627-5.373-12-12-12z"/>
         </svg>
       </a>
-      <a href="https://www.linkedin.com/in/robertomoraeszarzur/" target="_blank" rel="noopener noreferrer">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 inline-block ml-2">
-  <path d="M21,1H3A2,2,0,0,0,1,3V21a2,2,0,0,0,2,2H21a2,2,0,0,0,2-2V3A2,2,0,0,0,21,1ZM8.513,18.479H5.734V10.94H8.513ZM7.123,9.41a1.638,1.638,0,1,1,1.638-1.637A1.637,1.637,0,0,1,7.123,9.41ZM19.479,18.479H16.7V14.151c0-1.1-.022-2.515-1.534-2.515-1.535,0-1.769,1.2-1.769,2.437v4.407H10.242V10.94h2.693v1.3h.039a3.151,3.151,0,0,1,2.834-1.556c3.034,0,3.593,1.995,3.593,4.581Z"/>
-</svg>
-
+      <a href="https://www.linkedin.com/in/robertomoraeszarzur/" target="_blank" rel="noopener noreferrer" class="ml-3">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 inline-block">
+          <path d="M21,1H3A2,2,0,0,0,1,3V21a2,2,0,0,0,2,2H21a2,2,0,0,0,2-2V3A2,2,0,0,0,21,1ZM8.513,18.479H5.734V10.94H8.513ZM7.123,9.41a1.638,1.638,0,1,1,1.638-1.637A1.637,1.637,0,0,1,7.123,9.41ZM19.479,18.479H16.7V14.151c0-1.1-.022-2.515-1.534-2.515-1.535,0-1.769,1.2-1.769,2.437v4.407H10.242V10.94h2.693v1.3h.039a3.151,3.151,0,0,1,2.834-1.556c3.034,0,3.593,1.995,3.593,4.581Z"/>
+        </svg>
       </a>
     </div>
   </footer>
