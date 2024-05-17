@@ -21,10 +21,8 @@
   const showMinValueWarning = ref(false);
   
   function formatarMoeda(valor: string): string {
-    // Remove todos os caracteres não numéricos
     const valorNumerico = valor.replace(/[^\d]/g, '');
   
-    // Formata o valor
     let valorFormatado = (parseFloat(valorNumerico) / 100).toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, "$1.");
     valorFormatado = `R$ ${valorFormatado}`;
     return valorFormatado;
@@ -42,7 +40,6 @@
   function onInput(event: InputEvent): void {
     let valor = (event.target as HTMLInputElement).value;
   
-    // Verifica se o valor contém apenas números
     if (!/^\d*\.?\d*$/.test(valor)) {
       (event.target as HTMLInputElement).value = valor.replace(/[^\d]/g, '');
       valor = (event.target as HTMLInputElement).value;
