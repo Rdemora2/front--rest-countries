@@ -17,17 +17,17 @@
     label: 'Home',
     to: '/'
   }, {
-    label: 'Register',
+    label: 'Cadastrar',
     to: '/register'
   }, {
-    label: 'Countries',
+    label: 'Países',
     to: '/countries'
   }, {
-    label: 'Search',
-    to: '/search'
-  }, {
-    label: 'Chart',
+    label: 'Gráfico',
     to: '/chart'
+  }, {
+    label: 'Buscar',
+    to: '/search'
   }]
   </script>
   
