@@ -181,15 +181,17 @@ const handleSubmit = () => {
 </script>
 
 <style scoped>
-.register{
+.register {
   max-width: 100%;
   min-height: calc(100vh - 9.73rem);
-  padding-left: 2rem;
-  padding-right: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 form {
   max-width: 600px;
+  width: 85vw;
   margin: 0 auto;
   padding: 20px;
   background-color: rgb(15 22 33);
