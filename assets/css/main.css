@@ -1,0 +1,16 @@
+body {
+    background-color: rgb(13, 17, 23);
+  }
+  
+.rounded-b-lg {
+    border-bottom-left-radius: 2rem;
+    border-bottom-right-radius: 2rem;
+}
+
+.bg-gray-900 {
+    background-color: rgb(13, 17, 23);
+  }
+  
+.bg-black {
+    background-color: rgb(1, 4, 9);
+  }
