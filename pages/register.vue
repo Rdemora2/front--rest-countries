@@ -1,7 +1,7 @@
 <template>
   <div class="register">
-    <form @submit.prevent="handleSubmit">
-      <div v-if="step === 1">
+    <UForm class="w-5/6 lg:w-1/4" @submit.prevent="handleSubmit">
+      <div class="formDiv" v-if="step === 1">
         <div>
           <label for="name">Nome Completo</label>
           <UInput
@@ -116,7 +116,7 @@
         <button type="button" @click="prevStep">Voltar</button>
         <button type="submit">Enviar</button>
       </div>
-    </form>
+    </UForm >
   </div>
 </template>
 
@@ -180,6 +180,7 @@ const handleSubmit = () => {
 
 <style scoped>
 .register {
+  width: 100vw;
   max-width: 100%;
   min-height: calc(100vh - 9.73rem);
   display: flex;
@@ -187,9 +188,9 @@ const handleSubmit = () => {
   justify-content: center;
 }
 
-form {
+UForm, formDiv {
   max-width: 600px;
-  width: 85vw;
+  width: 85vw !important;
   margin: 0 auto;
   padding: 20px;
   background-color: rgb(15 22 33);
@@ -197,16 +198,14 @@ form {
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
   color: white;
 }
-form div {
-  margin-bottom: 15px;
-}
+
 label {
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
   color: white;
 }
-input, select, button {
+UInput, select, button {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
