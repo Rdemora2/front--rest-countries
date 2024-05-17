@@ -125,7 +125,7 @@ const formData = ref({
   name: '',
   dob: '',
   cpf: '',
-  petType: 'cão',
+  petType: '',
   petBreed: '',
   otherBreed: '',
   income: 0,
