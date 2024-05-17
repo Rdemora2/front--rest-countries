@@ -4,64 +4,143 @@
     <form @submit.prevent="handleSubmit">
       <div>
         <label for="name">Nome Completo</label>
-        <input type="text" id="name" v-model="formData.name" required />
+        <UInput
+          id="name"
+          v-model="formData.name"
+          color="primary"
+          variant="outline"
+          required
+        />
       </div>
       <div>
         <label for="dob">Data de Nascimento</label>
-        <input type="date" id="dob" v-model="formData.dob" required />
+        <UInput
+          type="date"
+          id="dob"
+          v-model="formData.dob"
+          color="primary"
+          variant="outline"
+          required
+        />
       </div>
       <div>
         <label for="cpf">CPF</label>
-        <input type="text" id="cpf" v-model="formData.cpf" required />
+        <UInput
+          type="text"
+          id="cpf"
+          v-model="formData.cpf"
+          color="primary"
+          variant="outline"
+          required
+        />
       </div>
       <div>
         <label for="pet">Espécie do Pet</label>
-        <select id="pet" v-model="formData.petType" @change="updateBreeds">
-          <option value="cão">Cão</option>
-          <option value="gato">Gato</option>
-        </select>
+        <USelect
+          id="pet"
+          v-model="formData.petType"
+          :options="['cão', 'gato']"
+          @change="updateBreeds"
+          color="primary"
+          variant="outline"
+        />
       </div>
       <div>
         <label for="breed">Raça do Pet</label>
-        <select id="breed" v-model="formData.petBreed">
-          <option v-for="breed in petBreeds" :key="breed" :value="breed">{{ breed }}</option>
-          <option value="outro">Outro</option>
-        </select>
+        <USelect
+          id="breed"
+          v-model="formData.petBreed"
+          :options="petBreeds"
+          color="primary"
+          variant="outline"
+        />
       </div>
       <div v-if="formData.petBreed === 'outro'">
         <label for="otherBreed">Outro</label>
-        <input type="text" id="otherBreed" v-model="formData.otherBreed" required />
+        <UInput
+          type="text"
+          id="otherBreed"
+          v-model="formData.otherBreed"
+          color="primary"
+          variant="outline"
+          required
+        />
       </div>
       <div>
         <label for="income">Renda Mensal</label>
-        <input type="number" id="income" v-model="formData.income" min="1000" required />
+        <UInput
+          type="number"
+          id="income"
+          v-model="formData.income"
+          min="1000"
+          color="primary"
+          variant="outline"
+          required
+        />
       </div>
       <div>
         <label for="cep">CEP</label>
-        <input type="text" id="cep" v-model="formData.cep" @blur="fetchAddress" required />
+        <UInput
+          type="text"
+          id="cep"
+          v-model="formData.cep"
+          color="primary"
+          variant="outline"
+          @blur="fetchAddress"
+          required
+        />
       </div>
       <div>
         <label for="street">Rua</label>
-        <input type="text" id="street" v-model="formData.street" required />
+        <UInput
+          type="text"
+          id="street"
+          v-model="formData.street"
+          color="primary"
+          variant="outline"
+          required
+        />
       </div>
       <div>
         <label for="neighborhood">Bairro</label>
-        <input type="text" id="neighborhood" v-model="formData.neighborhood" required />
+        <UInput
+          type="text"
+          id="neighborhood"
+          v-model="formData.neighborhood"
+          color="primary"
+          variant="outline"
+          required
+        />
       </div>
       <div>
         <label for="city">Cidade</label>
-        <input type="text" id="city" v-model="formData.city" required />
+        <UInput
+          type="text"
+          id="city"
+          v-model="formData.city"
+          color="primary"
+          variant="outline"
+          required
+        />
       </div>
       <div>
         <label for="state">Estado</label>
-        <input type="text" id="state" v-model="formData.state" maxlength="2" required />
+        <UInput
+          type="text"
+          id="state"
+          v-model="formData.state"
+          maxlength="2"
+          color="primary"
+          variant="outline"
+          required
+        />
       </div>
       <button type="submit">Enviar</button>
     </form>
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue';
 import axios from 'axios';
 
@@ -80,13 +159,13 @@ const formData = ref({
   state: ''
 });
 
-const petBreeds = ref([]);
+const petBreeds = ref<string[]>([]);
 
 const updateBreeds = () => {
   if (formData.value.petType === 'cão') {
-    petBreeds.value = ['Raça 1', 'Raça 2', 'Raça 3', 'Raça 4', 'Raça 5', 'Outro'];
+    petBreeds.value = ['Raça 1', 'Raça 2', 'Raça 3', 'Raça 4', 'Raça 5', 'outro'];
   } else {
-    petBreeds.value = ['Raça A', 'Raça B', 'Raça C', 'Raça D', 'Raça E', 'Outro'];
+    petBreeds.value = ['Raça A', 'Raça B', 'Raça C', 'Raça D', 'Raça E', 'outro'];
   }
 };
 
@@ -113,9 +192,10 @@ const handleSubmit = () => {
   max-width: 600px;
   margin: 0 auto;
   padding: 20px;
-  background: #fff;
+  background-color: rgb(15 22 33);
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  color: white;
 }
 form div {
   margin-bottom: 15px;
@@ -124,6 +204,7 @@ label {
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
+  color: white;
 }
 input, select, button {
   width: 100%;
@@ -133,11 +214,14 @@ input, select, button {
 }
 button {
   background-color: #007bff;
-  color: #fff;
   border: none;
   cursor: pointer;
 }
 button:hover {
   background-color: #0056b3;
+}
+
+USelect {
+  color: white  !important;
 }
 </style>
