@@ -17,7 +17,7 @@
   
   const id = 'income';
   const inputValue = ref('');
-  const label = 'Campo formatado Moeda';
+  const label = 'Renda mensal';
   const showMinValueWarning = ref(false);
   
   function formatarMoeda(valor: string): string {
