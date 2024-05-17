@@ -56,16 +56,7 @@
             required
           />
         </div>
-        <div>
-          <label for="income">Renda Mensal</label>
-          <UInput
-            type="number"
-            id="income"
-            v-model="formData.income"
-            min="1000"
-            required
-          />
-        </div>
+        <MoneyInput />
         <button type="button" @click="nextStep">Próximo</button>
       </div>
       <div v-else-if="step === 2">
@@ -126,6 +117,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import axios from 'axios';
+import MoneyInput from '../components/moneyInput.vue'
 
 const step = ref(1);
 
