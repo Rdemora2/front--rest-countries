@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full flex justify-center items-center h-24 rounded-b-lg bg-black">
+    <div class="w-full flex justify-center items-center h-24 rounded-b-lg bg-blue">
         <UHorizontalNavigation :links="links" class="w-full flex justify-center items-center h-full">
           <template #default="{ link }">
             <span class="group-hover:text-primary relative" style="font-size: 1.5rem;">

@@ -1,5 +1,5 @@
 <template>
-  <footer class="w-full flex justify-center items-center bg-black text-white py-4 text-center h-16">
+  <footer class="w-full flex justify-center items-center bg-blue text-white py-4 text-center h-16">
     <div class="flex items-center">
       <span>2024 | Developed by <b>Roberto de Moraes Zarzur</b></span>
       <a href="https://github.com/Rdemora2" target="_blank" rel="noopener noreferrer">
