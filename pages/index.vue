@@ -39,7 +39,7 @@
 <style scoped>
 .container {
   max-width: 100%;
-  min-height: calc(100vh - 10rem);
+  min-height: calc(100vh - 9.73rem);
   padding-left: 2rem;
   padding-right: 2rem;
 }
