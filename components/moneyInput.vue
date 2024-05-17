@@ -5,7 +5,7 @@
         type="text"
         :id="id"
         v-model="formattedValue"
-        @input="formatarMoeda"
+        @input="onInput"
         required
       />
       <p v-if="showMinValueWarning" class="min-value-warning">O valor mínimo é R$ 1.000,00</p>
@@ -16,30 +16,44 @@
   import { ref, computed } from 'vue';
   
   const id = 'income';
-  const value = ref('');
+  const inputValue = ref('');
   const label = 'Campo formatado Moeda';
   const showMinValueWarning = ref(false);
   
-  function formatarMoeda(event: InputEvent) {
-    const valor = (event.target as HTMLInputElement).value;
+  function formatarMoeda(valor: string): string {
+    // Remove todos os caracteres não numéricos
+    const valorNumerico = valor.replace(/[^\d]/g, '');
   
-    const valorNumerico = valor.replace(/\D/g, '');
-  
-    if (parseInt(valorNumerico) < 100000) {
-      showMinValueWarning.value = true;
-      return;
-    }
-  
-    showMinValueWarning.value = false;
-  
+    // Formata o valor
     let valorFormatado = (parseFloat(valorNumerico) / 100).toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, "$1.");
-    
     valorFormatado = `R$ ${valorFormatado}`;
-  
-    value.value = valorFormatado;
+    return valorFormatado;
   }
   
-  const formattedValue = computed(() => value.value);
+  function verificarValorMinimo(valor: string): void {
+    const valorNumerico = parseFloat(valor.replace(/[^\d]/g, ''));
+    if (valorNumerico < 1000) {
+      showMinValueWarning.value = true;
+    } else {
+      showMinValueWarning.value = false;
+    }
+  }
+  
+  function onInput(event: InputEvent): void {
+    let valor = (event.target as HTMLInputElement).value;
+  
+    // Verifica se o valor contém apenas números
+    if (!/^\d*\.?\d*$/.test(valor)) {
+      (event.target as HTMLInputElement).value = valor.replace(/[^\d]/g, '');
+      valor = (event.target as HTMLInputElement).value;
+    }
+  
+    const valorFormatado = formatarMoeda(valor);
+    inputValue.value = valorFormatado;
+    verificarValorMinimo(valor);
+  }
+  
+  const formattedValue = computed(() => inputValue.value);
   </script>
   
   <style scoped>
@@ -54,3 +68,4 @@
     color: white;
   }
   </style>
+  
