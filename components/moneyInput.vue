@@ -30,7 +30,7 @@
   
   function verificarValorMinimo(valor: string): void {
     const valorNumerico = parseFloat(valor.replace(/[^\d]/g, ''));
-    if (valorNumerico < 1000) {
+    if (valorNumerico < 100000) {
       showMinValueWarning.value = true;
     } else {
       showMinValueWarning.value = false;
