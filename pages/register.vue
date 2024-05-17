@@ -33,7 +33,7 @@
           <USelect
             id="pet"
             v-model="formData.petType"
-            :options="['cão', 'gato']"
+            :options="['Cão', 'Gato']"
             @change="updateBreeds"
             class="custom-select"
           />
