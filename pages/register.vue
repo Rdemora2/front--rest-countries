@@ -76,7 +76,7 @@
             type="text"
             id="street"
             v-model="formData.street"
-            required
+            disabled
           />
         </div>
         <div>
@@ -85,7 +85,7 @@
             type="text"
             id="neighborhood"
             v-model="formData.neighborhood"
-            required
+            disabled
           />
         </div>
         <div>
@@ -94,7 +94,7 @@
             type="text"
             id="city"
             v-model="formData.city"
-            required
+            disabled
           />
         </div>
         <div>
@@ -104,7 +104,7 @@
             id="state"
             v-model="formData.state"
             maxlength="2"
-            required
+            disabled
           />
         </div>
         <button type="button" @click="prevStep">Voltar</button>
