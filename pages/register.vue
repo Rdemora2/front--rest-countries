@@ -36,6 +36,7 @@
             :options="['Cão', 'Gato']"
             @change="updateBreeds"
             class="custom-select"
+            required
           />
         </div>
         <div>
@@ -45,6 +46,7 @@
             v-model="formData.petBreed"
             :options="petBreeds"
             class="custom-select"
+            required
           />
         </div>
         <div v-if="formData.petBreed === 'outro'">
@@ -76,6 +78,7 @@
             type="text"
             id="street"
             v-model="formData.street"
+            required
             disabled
           />
         </div>
@@ -85,6 +88,7 @@
             type="text"
             id="neighborhood"
             v-model="formData.neighborhood"
+            required
             disabled
           />
         </div>
@@ -94,6 +98,7 @@
             type="text"
             id="city"
             v-model="formData.city"
+            required
             disabled
           />
         </div>
@@ -104,6 +109,7 @@
             id="state"
             v-model="formData.state"
             maxlength="2"
+            required
             disabled
           />
         </div>
