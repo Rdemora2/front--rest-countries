@@ -14,7 +14,7 @@
           <label class="mt-3" for="dob">Data de Nascimento</label>
           <UInput type="date" id="dob" v-model="formData.dob" required />
         </div>
-        <CPFInput />
+        <CPFInput @updateCpf="updateCpfFromChild" />
         <div>
           <label class="mt-3" for="pet">Espécie do Pet</label>
           <USelect
@@ -45,7 +45,7 @@
             required
           />
         </div>
-        <MoneyInput />
+        <MoneyInput @updateIncome="updateIncomeFromChild"/>
         <UButton class="mb-5 mt-5" @click="nextStep">Próximo</UButton>
       </div>
       <div v-else-if="step === 2">
@@ -103,6 +103,7 @@
 import { ref } from "vue";
 import axios from "axios";
 import MoneyInput from "../components/moneyInput.vue";
+import cpfInvalid from "../components/CPFInput.vue";
 
 const step = ref(1);
 
@@ -121,10 +122,38 @@ const formData = ref({
   state: "",
 });
 
+const updateCpfFromChild = (formattedCpf: string) => {
+  formData.value.cpf = formattedCpf;
+};
+
+const updateIncomeFromChild = (formatNumber: number) => {
+  formData.value.income = formatNumber;
+};
+
 const petBreeds = ref<string[]>([]);
 
 const nextStep = () => {
-  step.value++;
+  console.log('Validando campos:');
+  console.log('Nome:', formData.value.name);
+  console.log('Data de Nascimento:', formData.value.dob);
+  console.log('CPF:', formData.value.cpf);
+  console.log('Espécie do Pet:', formData.value.petType);
+  console.log('Raça do Pet:', formData.value.petBreed);
+  console.log('Outra Raça:', formData.value.otherBreed);
+  console.log('Renda:', formData.value.income);
+  if (
+    formData.value.name &&
+    formData.value.dob &&
+    formData.value.cpf &&
+    formData.value.petType &&
+    formData.value.petBreed &&
+    (formData.value.petBreed !== "outro" || formData.value.otherBreed) &&
+    formData.value.income > 0
+  ) {
+    step.value++;
+  } else {
+    console.error("Todos os campos obrigatórios devem ser preenchidos e o CPF deve ser válido.");
+  }
 };
 
 const prevStep = () => {
@@ -132,7 +161,7 @@ const prevStep = () => {
 };
 
 const updateBreeds = () => {
-  if (formData.value.petType === "cão") {
+  if (formData.value.petType === "Cão") {
     petBreeds.value = [
       "Spitz Alemão",
       "Bulldog",

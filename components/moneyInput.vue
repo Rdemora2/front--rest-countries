@@ -4,7 +4,7 @@
       <UInput
         type="text"
         :id="id"
-        v-model="formattedValue"
+        v-model="formatedValue"
         @input="onInput"
         required
       />
@@ -13,8 +13,9 @@
   </template>
   
   <script setup lang="ts">
-  import { ref, computed } from 'vue';
+  import { ref, computed, defineEmits } from 'vue';
   
+  const emits = defineEmits(['updateIncome']);
   const id = 'income';
   const inputValue = ref('');
   const label = 'Renda mensal';
@@ -23,10 +24,13 @@
   function formatarMoeda(valor: string): string {
     const valorNumerico = valor.replace(/[^\d]/g, '');
   
-    let valorFormatado = (parseFloat(valorNumerico) / 100).toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, "$1.");
-    valorFormatado = `R$ ${valorFormatado}`;
-    return valorFormatado;
-  }
+  const numericFormatedValue = (parseFloat(valorNumerico) / 100).toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, "$1.");
+  const formatedValue = `R$ ${numericFormatedValue}`;
+  const formatNumber = parseFloat(valorNumerico) / 100; // Converte para valor numérico e divide por 100 para obter o valor em reais
+  const formatedNumber = Math.floor(formatNumber); // Arredonda para baixo para remover as casas decimais
+  emits('updateIncome', formatedNumber); // Emite o valor numérico formatado
+  return formatedValue; 
+}
   
   function verificarValorMinimo(valor: string): void {
     const valorNumerico = parseFloat(valor.replace(/[^\d]/g, ''));
@@ -50,7 +54,7 @@
     verificarValorMinimo(valor);
   }
   
-  const formattedValue = computed(() => inputValue.value);
+  const formatedValue = computed(() => inputValue.value);
   </script>
   
   <style scoped>
