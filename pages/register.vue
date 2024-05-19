@@ -11,15 +11,22 @@
           <UInput id="name" v-model="formData.name" required />
         </div>
         <div>
-          <label for="dob">Data de Nascimento</label>
+          <label class="mt-3" for="dob">Data de Nascimento</label>
           <UInput type="date" id="dob" v-model="formData.dob" required />
         </div>
         <div>
-          <label for="cpf">CPF</label>
-          <UInput type="text" id="cpf" v-model="formData.cpf" required />
+          <label class="mt-3" for="cpf">CPF</label>
+          <UInput
+            type="text"
+            id="cpf"
+            v-model="formattedCPF"
+            @input="formatCPF"
+            required
+          />
+          <p v-if="cpfInvalid" class="text-red-500 text-sm mt-1">CPF inválido</p>
         </div>
         <div>
-          <label for="pet">Espécie do Pet</label>
+          <label class="mt-3" for="pet">Espécie do Pet</label>
           <USelect
             id="pet"
             v-model="formData.petType"
@@ -30,7 +37,7 @@
           />
         </div>
         <div>
-          <label for="breed">Raça do Pet</label>
+          <label class="mt-3" for="breed">Raça do Pet</label>
           <USelect
             id="breed"
             v-model="formData.petBreed"
@@ -40,7 +47,7 @@
           />
         </div>
         <div v-if="formData.petBreed === 'outro'">
-          <label for="otherBreed">Outro</label>
+          <label class="mt-3" for="otherBreed">Outro</label>
           <UInput
             type="text"
             id="otherBreed"
@@ -49,19 +56,9 @@
           />
         </div>
         <MoneyInput />
-        <UButton class="mt-5" @click="nextStep">Próximo</UButton>
+        <UButton class="mb-5 mt-5" @click="nextStep">Próximo</UButton>
       </div>
       <div v-else-if="step === 2">
-        <div>
-          <label for="cep">CEP</label>
-          <UInput
-            type="text"
-            id="cep"
-            v-model="formData.cep"
-            @blur="fetchAddress"
-            required
-          />
-        </div>
         <div>
           <label for="street">Rua</label>
           <UInput
@@ -73,7 +70,7 @@
           />
         </div>
         <div>
-          <label for="neighborhood">Bairro</label>
+          <label class="mt-3" for="neighborhood">Bairro</label>
           <UInput
             type="text"
             id="neighborhood"
@@ -83,7 +80,7 @@
           />
         </div>
         <div>
-          <label for="city">Cidade</label>
+          <label class="mt-3" for="city">Cidade</label>
           <UInput
             type="text"
             id="city"
@@ -93,7 +90,7 @@
           />
         </div>
         <div>
-          <label for="state">Estado</label>
+          <label class="mt-3" for="state">Estado</label>
           <UInput
             type="text"
             id="state"
@@ -104,8 +101,8 @@
           />
         </div>
         <UButtonGroup size="xl" orientation="horizontal">
-          <UButton class="mb-5 mt-5" @click="prevStep">Voltar</UButton>
-          <UButton class="mb-5 mt-5" type="submit">Enviar</UButton>
+          <UButton class=" mt-5 mr-5" @click="prevStep">Voltar</UButton>
+          <UButton class="mt-5" type="submit">Enviar</UButton>
         </UButtonGroup>
       </div>
     </UForm>
@@ -115,6 +112,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import axios from "axios";
+import { cpf } from "cpf-cnpj-validator";
 import MoneyInput from "../components/moneyInput.vue";
 
 const step = ref(1);
@@ -133,6 +131,28 @@ const formData = ref({
   city: "",
   state: "",
 });
+
+const formattedCPF = ref('');
+const cpfInvalid = ref(false);
+
+const formatCPF = (event: Event) => {
+  const input = event.target as HTMLInputElement;
+  const unformattedCPF = input.value.replace(/[^\d]/g, '');
+  const formatted = cpf.format(unformattedCPF);
+  formattedCPF.value = formatted;
+  formData.value.cpf = unformattedCPF;
+  input.value = formatted;
+  validateCPF();
+};
+
+const validateCPF = () => {
+  const isValidCPF = cpf.isValid(formData.value.cpf);
+  cpfInvalid.value = !isValidCPF;
+  if (!isValidCPF) {
+    console.error('CPF inválido');
+    return;
+  }
+};
 
 const petBreeds = ref<string[]>([]);
 
@@ -181,7 +201,6 @@ const fetchAddress = async () => {
 };
 
 const handleSubmit = () => {
-  // Validação e submissão do formulário
   console.log("Formulário enviado:", formData.value);
 };
 </script>
@@ -214,6 +233,7 @@ label {
   font-weight: bold;
   color: white;
 }
+
 UInput,
 select,
 button {
@@ -222,22 +242,27 @@ button {
   border: 1px solid #ccc;
   border-radius: 5px;
 }
+
 button {
   background-color: #007bff;
   border: none;
   cursor: pointer;
 }
+
 button:hover {
   background-color: #0056b3;
 }
+
 .custom-select .u-select__control {
   background-color: white;
   color: black;
 }
+
 .custom-select .u-select__menu {
   background-color: white;
   color: black;
 }
+
 .custom-select .u-select__option {
   background-color: white;
   color: black;

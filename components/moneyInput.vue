@@ -1,6 +1,6 @@
 <template>
     <div>
-      <label>{{ label }}</label>
+      <label class="mt-3">{{ label }}</label>
       <UInput
         type="text"
         :id="id"
