@@ -1,32 +1,22 @@
 <template>
   <div class="register">
-    <UForm class="w-5/6 lg:w-1/4" @submit.prevent="handleSubmit">
+    <UForm
+      class="w-5/6 lg:w-1/4"
+      :state="formData"
+      @submit.prevent="handleSubmit"
+    >
       <div class="formDiv" v-if="step === 1">
         <div>
           <label for="name">Nome Completo</label>
-          <UInput
-            id="name"
-            v-model="formData.name"
-            required
-          />
+          <UInput id="name" v-model="formData.name" required />
         </div>
         <div>
           <label for="dob">Data de Nascimento</label>
-          <UInput
-            type="date"
-            id="dob"
-            v-model="formData.dob"
-            required
-          />
+          <UInput type="date" id="dob" v-model="formData.dob" required />
         </div>
         <div>
           <label for="cpf">CPF</label>
-          <UInput
-            type="text"
-            id="cpf"
-            v-model="formData.cpf"
-            required
-          />
+          <UInput type="text" id="cpf" v-model="formData.cpf" required />
         </div>
         <div>
           <label for="pet">Espécie do Pet</label>
@@ -59,7 +49,7 @@
           />
         </div>
         <MoneyInput />
-        <button type="button" @click="nextStep">Próximo</button>
+        <UButton class="mt-5" @click="nextStep">Próximo</UButton>
       </div>
       <div v-else-if="step === 2">
         <div>
@@ -113,33 +103,35 @@
             disabled
           />
         </div>
-        <button type="button" @click="prevStep">Voltar</button>
-        <button type="submit">Enviar</button>
+        <UButtonGroup size="xl" orientation="horizontal">
+          <UButton class="mb-5 mt-5" @click="prevStep">Voltar</UButton>
+          <UButton class="mb-5 mt-5" type="submit">Enviar</UButton>
+        </UButtonGroup>
       </div>
-    </UForm >
+    </UForm>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import axios from 'axios';
-import MoneyInput from '../components/moneyInput.vue'
+import { ref } from "vue";
+import axios from "axios";
+import MoneyInput from "../components/moneyInput.vue";
 
 const step = ref(1);
 
 const formData = ref({
-  name: '',
-  dob: '',
-  cpf: '',
-  petType: '',
-  petBreed: '',
-  otherBreed: '',
+  name: "",
+  dob: "",
+  cpf: "",
+  petType: "",
+  petBreed: "",
+  otherBreed: "",
   income: 0,
-  cep: '',
-  street: '',
-  neighborhood: '',
-  city: '',
-  state: ''
+  cep: "",
+  street: "",
+  neighborhood: "",
+  city: "",
+  state: "",
 });
 
 const petBreeds = ref<string[]>([]);
@@ -153,28 +145,44 @@ const prevStep = () => {
 };
 
 const updateBreeds = () => {
-  if (formData.value.petType === 'cão') {
-    petBreeds.value = ['Raça 1', 'Raça 2', 'Raça 3', 'Raça 4', 'Raça 5', 'outro'];
+  if (formData.value.petType === "cão") {
+    petBreeds.value = [
+      "Spitz Alemão",
+      "Bulldog",
+      "Shih Tzu",
+      "Rottweiler",
+      "Pug",
+      "Outro",
+    ];
   } else {
-    petBreeds.value = ['Raça A', 'Raça B', 'Raça C', 'Raça D', 'Raça E', 'outro'];
+    petBreeds.value = [
+      "Persa",
+      "Siamês",
+      "Maine Coon",
+      "Sphynx",
+      "Ragdoll",
+      "Outro",
+    ];
   }
 };
 
 const fetchAddress = async () => {
   try {
-    const response = await axios.get(`https://viacep.com.br/ws/${formData.value.cep}/json/`);
+    const response = await axios.get(
+      `https://viacep.com.br/ws/${formData.value.cep}/json/`
+    );
     formData.value.street = response.data.logradouro;
     formData.value.neighborhood = response.data.bairro;
     formData.value.city = response.data.localidade;
     formData.value.state = response.data.uf;
   } catch (error) {
-    console.error('Erro ao buscar o endereço:', error);
+    console.error("Erro ao buscar o endereço:", error);
   }
 };
 
 const handleSubmit = () => {
   // Validação e submissão do formulário
-  console.log('Formulário enviado:', formData.value);
+  console.log("Formulário enviado:", formData.value);
 };
 </script>
 
@@ -188,14 +196,15 @@ const handleSubmit = () => {
   justify-content: center;
 }
 
-UForm, formDiv {
+UForm,
+formDiv {
   max-width: 600px;
   width: 85vw !important;
   margin: 0 auto;
   padding: 20px;
   background-color: rgb(15 22 33);
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   color: white;
 }
 
@@ -205,7 +214,9 @@ label {
   font-weight: bold;
   color: white;
 }
-UInput, select, button {
+UInput,
+select,
+button {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
