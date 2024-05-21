@@ -133,14 +133,6 @@ const updateIncomeFromChild = (formatNumber: number) => {
 const petBreeds = ref<string[]>([]);
 
 const nextStep = () => {
-  console.log('Validando campos:');
-  console.log('Nome:', formData.value.name);
-  console.log('Data de Nascimento:', formData.value.dob);
-  console.log('CPF:', formData.value.cpf);
-  console.log('Espécie do Pet:', formData.value.petType);
-  console.log('Raça do Pet:', formData.value.petBreed);
-  console.log('Outra Raça:', formData.value.otherBreed);
-  console.log('Renda:', formData.value.income);
   if (
     formData.value.name &&
     formData.value.dob &&
