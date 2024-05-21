@@ -95,6 +95,7 @@ export function prevStep(): void {
 export function handleSubmit(): void {
   console.log("Formulário enviado:", formData.value);
   saveToLocalStorage();
+  localStorage.setItem("registered", "true");
 }
 
 function saveToLocalStorage() {
