@@ -9,8 +9,8 @@
 <script>
 export default {
   components: {
-  Navbar: '~/components/navbar.vue',
-  Footer: '~/components/footer.vue'
-}
-}
+    Navbar: "~/components/navbar.vue",
+    Footer: "~/components/footer.vue",
+  },
+};
 </script>

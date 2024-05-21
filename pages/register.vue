@@ -14,7 +14,10 @@
           <label class="mt-3" for="dob">Data de Nascimento</label>
           <UInput type="date" id="dob" v-model="formData.dob" required />
         </div>
-        <CPFInput @updateCpf="updateCpfFromChild" @cpfInvalid="cpfInvalid = $event" />
+        <CPFInput
+          @updateCpf="updateCpfFromChild"
+          @cpfInvalid="cpfInvalid = $event"
+        />
         <div>
           <label class="mt-3" for="pet">Espécie do Pet</label>
           <USelect
@@ -45,7 +48,10 @@
             required
           />
         </div>
-        <MoneyInput @updateIncome="updateIncomeFromChild" @showMinValueWarning="showMinValueWarning = $event"/>
+        <MoneyInput
+          @updateIncome="updateIncomeFromChild"
+          @showMinValueWarning="showMinValueWarning = $event"
+        />
         <UButton class="mb-5 mt-5" @click="nextStep">Próximo</UButton>
       </div>
       <div v-else-if="step === 2">
@@ -91,7 +97,7 @@
           />
         </div>
         <UButtonGroup size="xl" orientation="horizontal">
-          <UButton class=" mt-5 mr-5" @click="prevStep">Voltar</UButton>
+          <UButton class="mt-5 mr-5" @click="prevStep">Voltar</UButton>
           <UButton class="mt-5" type="submit">Enviar</UButton>
         </UButtonGroup>
       </div>
@@ -135,16 +141,16 @@ const updateIncomeFromChild = (formatNumber: number) => {
 const petBreeds = ref<string[]>([]);
 
 const nextStep = () => {
-  console.log('Validando campos:');
-  console.log('Nome:', formData.value.name);
-  console.log('Data de Nascimento:', formData.value.dob);
-  console.log('CPF:', formData.value.cpf);
-  console.log('Espécie do Pet:', formData.value.petType);
-  console.log('Raça do Pet:', formData.value.petBreed);
-  console.log('Outra Raça:', formData.value.otherBreed);
-  console.log('Renda:', formData.value.income);
-  console.log('cpfInvalid:', cpfInvalid.value);
-  console.log('showMinValueWarning:', showMinValueWarning.value);
+  console.log("Validando campos:");
+  console.log("Nome:", formData.value.name);
+  console.log("Data de Nascimento:", formData.value.dob);
+  console.log("CPF:", formData.value.cpf);
+  console.log("Espécie do Pet:", formData.value.petType);
+  console.log("Raça do Pet:", formData.value.petBreed);
+  console.log("Outra Raça:", formData.value.otherBreed);
+  console.log("Renda:", formData.value.income);
+  console.log("cpfInvalid:", cpfInvalid.value);
+  console.log("showMinValueWarning:", showMinValueWarning.value);
 
   if (
     !cpfInvalid.value &&
@@ -159,7 +165,9 @@ const nextStep = () => {
   ) {
     step.value++;
   } else {
-    console.error("Todos os campos obrigatórios devem ser preenchidos e o CPF deve ser válido.");
+    console.error(
+      "Todos os campos obrigatórios devem ser preenchidos e o CPF deve ser válido."
+    );
   }
 };
 

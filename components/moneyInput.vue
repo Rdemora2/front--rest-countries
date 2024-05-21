@@ -35,7 +35,6 @@ function checkMinimumValue(value: string): void {
 
 function formatCurrency(value: string): string {
   const valueNumeric = value.replace(/[^\d]/g, "");
-
   const numericFormatedValue = (parseFloat(valueNumeric) / 100)
     .toFixed(2)
     .replace(".", ",")
