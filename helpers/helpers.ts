@@ -112,3 +112,17 @@ export function validateCPF(inputCPF: string): {
   const formatted = isValidCPF ? cpf.format(unformattedCPF) : inputCPF;
   return { formatted, isValid: isValidCPF };
 }
+
+export function formatCurrency(value: string): string {
+  const valueNumeric = parseFloat(value.replace(/[^\d]/g, ""));
+  const numericFormattedValue = (valueNumeric / 100)
+    .toFixed(2)
+    .replace(".", ",")
+    .replace(/(\d)(?=(\d{3})+\,)/g, "$1.");
+  return `R$ ${numericFormattedValue}`;
+}
+
+export function checkMinimumValue(value: string): boolean {
+  const valueNumeric = parseFloat(value.replace(/[^\d]/g, ""));
+  return valueNumeric < 100000;
+}

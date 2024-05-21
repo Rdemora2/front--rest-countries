@@ -9,42 +9,20 @@
       required
     />
     <p v-if="showMinValueWarning" class="text-red-500 text-sm mt-1">
-      O value mínimo é R$ 1.000,00
+      O valor mínimo é R$ 1.000,00
     </p>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, computed } from "vue";
+import { formatCurrency, checkMinimumValue } from "@/helpers/helpers";
 
 const emits = defineEmits(["updateIncome", "showMinValueWarning"]);
 const id = "income";
 const inputValue = ref("");
 const label = "Renda mensal";
 const showMinValueWarning = ref(false);
-
-function checkMinimumValue(value: string): void {
-  const valueNumeric = parseFloat(value.replace(/[^\d]/g, ""));
-  if (valueNumeric < 100000) {
-    showMinValueWarning.value = true;
-  } else {
-    showMinValueWarning.value = false;
-  }
-  emits("showMinValueWarning", showMinValueWarning.value);
-}
-
-function formatCurrency(value: string): string {
-  const valueNumeric = value.replace(/[^\d]/g, "");
-  const numericFormatedValue = (parseFloat(valueNumeric) / 100)
-    .toFixed(2)
-    .replace(".", ",")
-    .replace(/(\d)(?=(\d{3})+\,)/g, "$1.");
-  const completeValue = `R$ ${numericFormatedValue}`;
-  const formatedNumber = parseFloat(valueNumeric) / 100;
-  const formFormatNumber = Math.floor(formatedNumber);
-  emits("updateIncome", formFormatNumber);
-  return completeValue;
-}
 
 function onInput(event: InputEvent): void {
   let value = (event.target as HTMLInputElement).value;
@@ -54,9 +32,12 @@ function onInput(event: InputEvent): void {
     value = (event.target as HTMLInputElement).value;
   }
 
-  const valueFormatted = formatCurrency(value);
-  inputValue.value = valueFormatted;
-  checkMinimumValue(value);
+  const completeValue = formatCurrency(value);
+  inputValue.value = completeValue;
+  const isMinValue = checkMinimumValue(value);
+  showMinValueWarning.value = isMinValue;
+  emits("showMinValueWarning", isMinValue);
+  emits("updateIncome", parseFloat(value.replace(/[^\d]/g, "")) / 100);
 }
 
 const completeValue = computed(() => inputValue.value);
