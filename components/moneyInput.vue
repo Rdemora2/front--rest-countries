@@ -25,11 +25,12 @@ const showMinValueWarning = ref(false);
 
 function checkMinimumValue(value: string): void {
   const valueNumeric = parseFloat(value.replace(/[^\d]/g, ""));
-  if (valueNumeric < 10000) {
+  if (valueNumeric < 100000) {
     showMinValueWarning.value = true;
   } else {
     showMinValueWarning.value = false;
   }
+  emits("showMinValueWarning", showMinValueWarning.value);
 }
 
 function formatCurrency(value: string): string {
@@ -43,7 +44,6 @@ function formatCurrency(value: string): string {
   const formatedNumber = parseFloat(valueNumeric) / 100;
   const formFormatNumber = Math.floor(formatedNumber);
   emits("updateIncome", formFormatNumber);
-  emits("showMinValueWarning", showMinValueWarning.value);
   return completeValue;
 }
 
