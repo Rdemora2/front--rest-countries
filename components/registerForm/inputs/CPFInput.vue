@@ -5,7 +5,7 @@
       type="text"
       id="cpf"
       v-model="formattedCPF"
-      @input="formatCPF"
+      @input="handleInput"
       required
     />
     <p v-if="cpfInvalid" class="text-red-500 text-sm mt-1">CPF inválido</p>
@@ -14,30 +14,19 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import { cpf } from "cpf-cnpj-validator";
+import { validateCPF } from "@/helpers/helpers";
 
 const emits = defineEmits(["cpfInvalid", "updateCpf"]);
 const label = "CPF";
 const formattedCPF = ref("");
 const cpfInvalid = ref(false);
 
-const formatCPF = (event: Event) => {
+const handleInput = (event: Event) => {
   const input = event.target as HTMLInputElement;
-  const unformattedCPF = input.value.replace(/[^\d]/g, "");
-  const formatted = cpf.format(unformattedCPF);
+  const { formatted, isValid } = validateCPF(input.value);
   formattedCPF.value = formatted;
-  input.value = formatted;
-  validateCPF();
-};
-
-const validateCPF = () => {
-  const isValidCPF = cpf.isValid(formattedCPF.value);
-  cpfInvalid.value = !isValidCPF;
-  emits("updateCpf", formattedCPF.value);
-  emits("cpfInvalid", cpfInvalid.value);
-  if (!isValidCPF) {
-    console.error("CPF inválido");
-    return;
-  }
+  cpfInvalid.value = !isValid;
+  emits("updateCpf", formatted);
+  emits("cpfInvalid", !isValid);
 };
 </script>

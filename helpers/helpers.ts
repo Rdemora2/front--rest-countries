@@ -1,6 +1,7 @@
 import { ref } from "vue";
 import axios from "axios";
 import { parseISO, differenceInYears } from "date-fns";
+import { cpf } from "cpf-cnpj-validator";
 
 export const formData = ref({
   name: "",
@@ -100,4 +101,14 @@ export function validateAge(dateOfBirth: string): boolean {
   const age = differenceInYears(new Date(), birthday);
   const valid = age >= 18 && age <= 65;
   return valid;
+}
+
+export function validateCPF(inputCPF: string): {
+  formatted: string;
+  isValid: boolean;
+} {
+  const unformattedCPF = inputCPF.replace(/[^\d]/g, "");
+  const isValidCPF = cpf.isValid(unformattedCPF);
+  const formatted = isValidCPF ? cpf.format(unformattedCPF) : inputCPF;
+  return { formatted, isValid: isValidCPF };
 }
