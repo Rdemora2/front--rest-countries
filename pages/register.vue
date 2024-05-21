@@ -14,7 +14,7 @@
           <label class="mt-3" for="dob">Data de Nascimento</label>
           <UInput type="date" id="dob" v-model="formData.dob" required />
         </div>
-        <CPFInput @updateCpf="updateCpfFromChild" />
+        <CPFInput @updateCpf="updateCpfFromChild" @cpfInvalid="cpfInvalid = $event" />
         <div>
           <label class="mt-3" for="pet">Espécie do Pet</label>
           <USelect
@@ -45,7 +45,7 @@
             required
           />
         </div>
-        <MoneyInput @updateIncome="updateIncomeFromChild"/>
+        <MoneyInput @updateIncome="updateIncomeFromChild" @showMinValueWarning="showMinValueWarning = $event"/>
         <UButton class="mb-5 mt-5" @click="nextStep">Próximo</UButton>
       </div>
       <div v-else-if="step === 2">
@@ -103,9 +103,11 @@
 import { ref } from "vue";
 import axios from "axios";
 import MoneyInput from "../components/moneyInput.vue";
-import cpfInvalid from "../components/CPFInput.vue";
+import CPFInput from "../components/CPFInput.vue";
 
 const step = ref(1);
+const cpfInvalid = ref(false);
+const showMinValueWarning = ref(false);
 
 const formData = ref({
   name: "",
@@ -133,7 +135,20 @@ const updateIncomeFromChild = (formatNumber: number) => {
 const petBreeds = ref<string[]>([]);
 
 const nextStep = () => {
+  console.log('Validando campos:');
+  console.log('Nome:', formData.value.name);
+  console.log('Data de Nascimento:', formData.value.dob);
+  console.log('CPF:', formData.value.cpf);
+  console.log('Espécie do Pet:', formData.value.petType);
+  console.log('Raça do Pet:', formData.value.petBreed);
+  console.log('Outra Raça:', formData.value.otherBreed);
+  console.log('Renda:', formData.value.income);
+  console.log('cpfInvalid:', cpfInvalid.value);
+  console.log('showMinValueWarning:', showMinValueWarning.value);
+
   if (
+    !cpfInvalid.value &&
+    !showMinValueWarning.value &&
     formData.value.name &&
     formData.value.dob &&
     formData.value.cpf &&
