@@ -4,10 +4,7 @@
       <label for="name">Nome Completo</label>
       <UInput id="name" v-model="formData.name" required />
     </div>
-    <div class="mt-3">
-      <label for="dob">Data de Nascimento</label>
-      <UInput type="date" id="dob" v-model="formData.dob" required />
-    </div>
+    <DateOfBirthInput v-model="formData.dob" />
     <CPFInput
       @updateCpf="updateCpfFromChild"
       @cpfInvalid="cpfInvalid = $event"
@@ -53,6 +50,7 @@
 <script setup lang="ts">
 import MoneyInput from "../inputs/moneyInput.vue";
 import CPFInput from "../inputs/CPFInput.vue";
+import DateOfBirthInput from "../inputs/DateOfBirthInput.vue";
 import {
   nextStep,
   updateBreeds,

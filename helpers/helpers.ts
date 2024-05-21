@@ -1,8 +1,7 @@
 import { ref } from "vue";
 import axios from "axios";
+import { parseISO, differenceInYears } from "date-fns";
 
-export const cpfInvalid = ref(false);
-export const showMinValueWarning = ref(false);
 export const formData = ref({
   name: "",
   dob: "",
@@ -17,6 +16,11 @@ export const formData = ref({
   city: "",
   state: "",
 });
+export const petBreeds = ref<string[]>([]);
+export const step = ref(1);
+export const validAge = () => validateAge(formData.value.dob);
+export const cpfInvalid = ref(false);
+export const showMinValueWarning = ref(false);
 
 export function updateCpfFromChild(formattedCpf: string): void {
   formData.value.cpf = formattedCpf;
@@ -25,8 +29,6 @@ export function updateCpfFromChild(formattedCpf: string): void {
 export function updateIncomeFromChild(formatNumber: number): void {
   formData.value.income = formatNumber;
 }
-
-export const petBreeds = ref<string[]>([]);
 
 export function updateBreeds(): void {
   if (formData.value.petType === "Cão") {
@@ -64,8 +66,6 @@ export async function fetchAddress(): Promise<void> {
   }
 }
 
-export const step = ref(1);
-
 export function nextStep(): void {
   if (
     !cpfInvalid.value &&
@@ -76,7 +76,8 @@ export function nextStep(): void {
     formData.value.petType &&
     formData.value.petBreed &&
     (formData.value.petBreed !== "outro" || formData.value.otherBreed) &&
-    formData.value.income > 0
+    formData.value.income > 0 &&
+    validAge()
   ) {
     step.value++;
   } else {
@@ -92,4 +93,11 @@ export function prevStep(): void {
 
 export function handleSubmit(): void {
   console.log("Formulário enviado:", formData.value);
+}
+
+export function validateAge(dateOfBirth: string): boolean {
+  const birthday = parseISO(dateOfBirth);
+  const age = differenceInYears(new Date(), birthday);
+  const valid = age >= 18 && age <= 65;
+  return valid;
 }
