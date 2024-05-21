@@ -66,7 +66,7 @@
 
         <template #footer>
           <Placeholder class="h-8" />
-          <UButton @click="isOpen">Fechar</UButton>
+          <UButton @click="closeModalAndRedirect">Fechar</UButton>
         </template>
       </UCard>
     </UModal>
@@ -83,10 +83,28 @@ import {
   handleSubmit,
 } from "@/helpers/helpers";
 
+let timerId: NodeJS.Timeout | null = null;
 const isOpen = ref(false);
-
+const router = useRouter();
 const submitForm = () => {
   handleSubmit();
   isOpen.value = true;
+  startTimer();
+};
+
+const startTimer = () => {
+  timerId = setTimeout(() => {
+    redirectToIndex();
+  }, 10000);
+};
+
+const closeModalAndRedirect = () => {
+  isOpen.value = false;
+  redirectToIndex();
+};
+
+const redirectToIndex = () => {
+  isOpen.value = false;
+  router.push('/');
 };
 </script>
