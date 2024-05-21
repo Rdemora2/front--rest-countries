@@ -16,7 +16,7 @@
 import { ref, defineEmits } from "vue";
 import { cpf } from "cpf-cnpj-validator";
 
-const emits = defineEmits(['updateCpf']);
+const emits = defineEmits(['cpfInvalid', 'updateCpf']);
 const label = "CPF"
 const formattedCPF = ref("");
 const cpfInvalid = ref(false);
@@ -27,13 +27,14 @@ const formatCPF = (event: Event) => {
   const formatted = cpf.format(unformattedCPF);
   formattedCPF.value = formatted;
   input.value = formatted;
-  emits('updateCpf', formattedCPF.value);
   validateCPF();
 };
 
 const validateCPF = () => {
   const isValidCPF = cpf.isValid(formattedCPF.value);
   cpfInvalid.value = !isValidCPF;
+  emits('updateCpf', formattedCPF.value);
+  emits('cpfInvalid', cpfInvalid.value);
   if (!isValidCPF) {
     console.error("CPF inválido");
     return;
