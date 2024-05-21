@@ -94,6 +94,19 @@ export function prevStep(): void {
 
 export function handleSubmit(): void {
   console.log("Formulário enviado:", formData.value);
+  saveToLocalStorage();
+}
+
+function saveToLocalStorage() {
+  const formDataJson = JSON.stringify(formData.value);
+  localStorage.setItem("formData", formDataJson);
+}
+
+export function getFormDataFromLocalStorage() {
+  const formDataJson = localStorage.getItem("formData");
+  if (formDataJson) {
+    formData.value = JSON.parse(formDataJson);
+  }
 }
 
 export function validateAge(dateOfBirth: string): boolean {
