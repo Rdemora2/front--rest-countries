@@ -26,9 +26,9 @@
   
   const numericFormatedValue = (parseFloat(valorNumerico) / 100).toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, "$1.");
   const formatedValue = `R$ ${numericFormatedValue}`;
-  const formatNumber = parseFloat(valorNumerico) / 100; // Converte para valor numérico e divide por 100 para obter o valor em reais
-  const formatedNumber = Math.floor(formatNumber); // Arredonda para baixo para remover as casas decimais
-  emits('updateIncome', formatedNumber); // Emite o valor numérico formatado
+  const formatNumber = parseFloat(valorNumerico) / 100;
+  const formatedNumber = Math.floor(formatNumber);
+  emits('updateIncome', formatedNumber);
   return formatedValue; 
 }
   
