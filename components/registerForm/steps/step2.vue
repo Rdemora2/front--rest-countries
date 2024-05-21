@@ -47,11 +47,46 @@
     </div>
     <UButtonGroup size="xl" orientation="horizontal">
       <UButton class="mt-5 mr-5" @click="prevStep">Voltar</UButton>
-      <UButton class="mt-5" @click="handleSubmit">Enviar</UButton>
+      <UButton class="mt-5" @click="submitForm">Enviar</UButton>
     </UButtonGroup>
+    <UModal v-model="isOpen">
+      <UCard
+        :ui="{
+          ring: '',
+          divide: 'divide-y divide-gray-100 dark:divide-gray-800',
+        }"
+        class="text-center h-80"
+      >
+        <template #header>
+          <h3>Cadastro Efetuado com Sucesso!</h3>
+          <Placeholder class="h-8" />
+        </template>
+        <p>Seu cadastro foi enviado com sucesso.</p>
+        <Placeholder class="h-32" />
+
+        <template #footer>
+          <Placeholder class="h-8" />
+          <UButton @click="isOpen">Fechar</UButton>
+        </template>
+      </UCard>
+    </UModal>
   </div>
 </template>
 
 <script setup lang="ts">
-import { prevStep, formData, fetchAddress, handleSubmit } from "@/helpers/helpers";
+import { ref } from "vue";
+import { useRouter } from "vue-router";
+import {
+  prevStep,
+  formData,
+  fetchAddress,
+  handleSubmit,
+} from "@/helpers/helpers";
+
+const isOpen = ref(false);
+
+const submitForm = () => {
+  handleSubmit();
+  isOpen.value = true;
+};
 </script>
