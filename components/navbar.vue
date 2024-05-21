@@ -1,6 +1,20 @@
 <template>
   <div class="w-full bg-blue h-24">
     <UHorizontalNavigation
+      v-if="isRegistered"
+      :links="filteredLinks"
+      class="flex justify-center items-center h-full"
+    >
+      <template #default="{ link }">
+        <span
+          class="group-hover:text-primary relative text-lg md:text-xl lg:text-2xl xl:text-3xl"
+        >
+          {{ link.label }}
+        </span>
+      </template>
+    </UHorizontalNavigation>
+    <UHorizontalNavigation
+      v-else
       :links="links"
       class="flex justify-center items-center h-full"
     >
@@ -16,7 +30,7 @@
 </template>
 
 <script setup lang="ts">
-const route = useRoute();
+import { ref } from 'vue';
 
 const links = [
   {
@@ -40,4 +54,41 @@ const links = [
     to: "/search",
   },
 ];
+
+const filteredLinks = [
+  {
+    label: "Home",
+    to: "/",
+  },
+  {
+    label: "Países",
+    to: "/countries",
+  },
+  {
+    label: "Gráfico",
+    to: "/chart",
+  },
+  {
+    label: "Buscar",
+    to: "/search",
+  },
+];
+
+let isRegistered = ref(process.client ? localStorage.getItem("registered") === "true" : false);
+
+const checkLocalStorage = () => {
+  const newValue = process.client ? localStorage.getItem("registered") === "true" : false;
+  
+  if (newValue !== isRegistered.value) {
+    isRegistered.value = newValue;
+  }
+  
+  setTimeout(checkLocalStorage, 1000);
+};
+
+checkLocalStorage();
+
+watchEffect(() => {
+  checkLocalStorage();
+});
 </script>
