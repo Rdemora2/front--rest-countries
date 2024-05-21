@@ -25,7 +25,7 @@ const showMinValueWarning = ref(false);
 
 function checkMinimumValue(value: string): void {
   const valueNumeric = parseFloat(value.replace(/[^\d]/g, ""));
-  if (valueNumeric < 100000) {
+  if (valueNumeric < 10000) {
     showMinValueWarning.value = true;
   } else {
     showMinValueWarning.value = false;
