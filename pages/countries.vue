@@ -9,10 +9,12 @@
     <div class="flex flex-row flex-wrap justify-around">
       <div
         v-for="country in countries"
-        class="w-72 h-80 mb-9 mx-2 flex-row"
+        class="w-72 h-80 mb-12 mx-2 relative group"
         :key="country.name.official"
       >
-        <UCard class="w-72 h-80 text-center flex flex-col">
+        <UCard
+          class="w-72 h-80 text-center flex flex-col transition duration-3 ease-in-out transform hover:scale-105 hover:opacity-75 rounded-xl"
+        >
           <template #header>
             <img
               :src="country.flags.svg"
@@ -23,12 +25,21 @@
           </template>
           <template #footer>
             <div class="flex flex-col justify-around h-20">
-              <a @click="openGoogleMaps(country)">{{ country.name.common }}</a>
-              <p>{{ country.capital[0] }}</p>
+              <a class="font-bold text-base" @click="openGoogleMaps(country)">{{ country.name.common }}</a>
+              <p class="text-sm">{{ country.capital[0] }}</p>
             </div>
             <Placeholder class="h-8" />
           </template>
         </UCard>
+        <div
+          class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition duration-300 ease-in-out rounded-xl"
+        >
+          <UButton
+            @click="openGoogleMaps(country)"
+            class="text-white px-4 py-2 bg-green-500 rounded"
+            >Ver no Maps</UButton
+          >
+        </div>
       </div>
     </div>
   </div>
@@ -62,11 +73,14 @@ const fetchCountries = async () => {
 };
 
 const openGoogleMaps = (country) => {
-  if (country.name.official > 0) {
-    const country = country.name.official;
-    window.open(`https://www.google.com/maps/place/${conuntry}`, "_blank");
+  const officialName = country.name.official;
+  if (officialName) {
+    window.open(
+      `https://www.google.com/maps/place/${encodeURIComponent(officialName)}`,
+      "_blank"
+    );
   } else {
-    console.error("Capital não encontrada para o país:", country.name.official);
+    console.error("País não encontrado", country.name.common);
   }
 };
 
