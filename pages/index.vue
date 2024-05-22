@@ -30,6 +30,6 @@ watchEffect(() => {
 
 <style scoped>
 .min-h-screen {
-  min-height: calc(100vh - 9.73rem);
+  min-height: calc(100vh - 7.3rem);
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full bg-blue h-24">
+  <div class="w-full bg-blue h-18">
     <UHorizontalNavigation
       v-if="isRegistered"
       :links="filteredLinks"
@@ -7,7 +7,7 @@
     >
       <template #default="{ link }">
         <span
-          class="group-hover:text-primary relative text-lg md:text-xl lg:text-2xl xl:text-3xl"
+        class="group-hover:text-primary relative text-base md:text-base lg:text-lg xl:text-lg"
         >
           {{ link.label }}
         </span>
@@ -20,7 +20,7 @@
     >
       <template #default="{ link }">
         <span
-          class="group-hover:text-primary relative text-lg md:text-xl lg:text-2xl xl:text-3xl"
+          class="group-hover:text-primary relative text-base md:text-base lg:text-lg xl:text-lg"
         >
           {{ link.label }}
         </span>
