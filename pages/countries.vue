@@ -8,21 +8,28 @@
     <hr class="mb-8 border-green-400" />
     <div class="flex flex-row flex-wrap justify-around">
       <div
-      v-for="country in countries"
-      class="w-72 h-72 mb-9 mx-2 flex-row"
-      :key="country.name.official"
-    >
-      <UCard class="w-72 h-72 text-center flex flex-col">
-        <template #header>
-          <Placeholder class="h-8" />
-          <a @click="openGoogleMaps(country)">{{ country.name.common }}</a>
-        </template>
-        <template #footer>
-          <p>{{ country.capital[0] }}</p>
-          <Placeholder class="h-8" />
-        </template>
-      </UCard>
-    </div>
+        v-for="country in countries"
+        class="w-72 h-80 mb-9 mx-2 flex-row"
+        :key="country.name.official"
+      >
+        <UCard class="w-72 h-80 text-center flex flex-col">
+          <template #header>
+            <img
+              :src="country.flags.svg"
+              :alt="`Bandeira de ${country.name.common}`"
+              class="w-full h-40 object-cover mb-2"
+            />
+            <Placeholder class="h-8" />
+          </template>
+          <template #footer>
+            <div class="flex flex-col justify-around h-20">
+              <a @click="openGoogleMaps(country)">{{ country.name.common }}</a>
+              <p>{{ country.capital[0] }}</p>
+            </div>
+            <Placeholder class="h-8" />
+          </template>
+        </UCard>
+      </div>
     </div>
   </div>
 </template>
