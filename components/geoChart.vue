@@ -1,6 +1,7 @@
 <template>
   <div class="container mx-auto px-8 flex flex-col justify-center h-96 w-4/6">
     <div id="mapContainer"></div>
+    <div id="info" class="info"></div>
   </div>
 </template>
 
@@ -84,7 +85,6 @@ export default defineComponent({
       map.fitBounds(geojsonLayer.getBounds());
     };
 
-    // Obtém a cor dependendo da população
     function getColor(population) {
       return population > 100000000 ? '#800026' :
              population > 50000000  ? '#BD0026' :
@@ -95,7 +95,6 @@ export default defineComponent({
              population > 1000000   ? '#FED976' : '#FFEDA0';
     }
 
-    // Estilo do país no mapa
     function style(feature) {
       return {
         fillColor: getColor(feature.properties.population),
@@ -107,7 +106,6 @@ export default defineComponent({
       };
     }
 
-    // Adiciona eventos aos países
     function onEachFeature(feature, layer) {
       layer.on({
         mouseover: highlightFeature,
@@ -116,7 +114,6 @@ export default defineComponent({
       });
     }
 
-    // Destaque do país ao passar o mouse
     function highlightFeature(e) {
       const layer = e.target;
 
@@ -128,10 +125,16 @@ export default defineComponent({
       });
 
       layer.bringToFront();
+
+      const info = document.getElementById('info');
+      info.innerHTML = `<h4>${layer.feature.properties.name}</h4>${layer.feature.properties.population} people`;
     }
 
     function resetHighlight(e) {
       geojsonLayer.resetStyle(e.target);
+
+      const info = document.getElementById('info');
+      info.innerHTML = '';
     }
 
     function zoomToFeature(e) {
@@ -144,5 +147,14 @@ export default defineComponent({
 <style scoped>
 #mapContainer {
   height: calc(80vh - 7.3rem);
+}
+
+.info {
+  padding: 6px 8px;
+  font: 14px/16px Arial, Helvetica, sans-serif;
+  background: white;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
 }
 </style>
