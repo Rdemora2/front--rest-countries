@@ -19,5 +19,9 @@
     "unicorn-magic": "^0.2.0",
     "vue": "^3.4.27",
     "vue-router": "^4.3.2"
+  },
+  "devDependencies": {
+    "@vue-leaflet/vue-leaflet": "^0.10.1",
+    "leaflet": "^1.9.4"
   }
 }
