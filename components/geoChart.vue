@@ -1,6 +1,5 @@
 <template>
   <div class="container mx-auto px-8 flex flex-col justify-center h-96 w-4/6">
-    <h1>paises</h1>
     <div id="mapContainer"></div>
     <div id="info" class="info"></div>
   </div>
@@ -43,7 +42,7 @@ export default defineComponent({
         );
         return response.data;
       } catch (error) {
-        console.error("Erro ao buscar dados da API:", error);
+        console.error("Error fetching API data:", error);
         return [];
       }
     };
@@ -67,11 +66,21 @@ export default defineComponent({
         countryPopulationMap[country.name.common] = country.population;
       });
 
+      const nameMapping = {
+        "Dem. Rep. Congo": "DR Congo",
+        "Congo": "Republic of the Congo",
+        "Côte d'Ivoire": "Ivory Coast",
+        "S. Sudan": "South Sudan",
+        "eSwatini": "Lesotho",
+        "Somaliland": "Somalia",
+        "W. Sahara": "Western Sahara",
+        "Central African Rep.": "Central African Republic"
+      };
+
       geojson.features.forEach(feature => {
         const countryName = feature.properties.name;
-        if (countryPopulationMap.hasOwnProperty(countryName)) {
-          feature.properties.population = countryPopulationMap[countryName];
-        }
+        const mappedName = nameMapping[countryName] || countryName;
+        feature.properties.population = countryPopulationMap[mappedName] || "Data not available: ";
       });
 
       return geojson;
@@ -148,7 +157,6 @@ export default defineComponent({
 <style scoped>
 #mapContainer {
   height: calc(80vh - 7.3rem);
-  z-index: 1;
 }
 
 .info {
@@ -157,7 +165,6 @@ export default defineComponent({
   color: white;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
-  z-index: 2;
   height: 5vh;
 }
 </style>
