@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto p-4">
+  <div class="container mx-auto p-4 text-center">
     <UInput
       icon="i-heroicons-magnifying-glass-20-solid"
       size="sm"
@@ -9,12 +9,13 @@
       v-model="query"
       @input="onSearch"
     />
-    <div v-if="countries.length" class="mt-4">
-      <h2>Resultados da Busca:</h2>
-      <ul>
+    <div v-if="countries.length || query === ''" class="mt-4">
+      <h2 v-if="countries.length">Resultados da Busca:</h2>
+      <ul v-if="countries.length">
         <li v-for="country in countries" :key="country.cca3">
+          <p><strong>País:</strong></p>
           <h3>{{ country.name }}</h3>
-          <p><strong>Idiomas:</strong></p>
+          <p><strong>Idioma:</strong></p>
           <ul>
             <li
               v-for="(lang, code) in country.languages"
@@ -25,13 +26,14 @@
               {{ lang }}
             </li>
           </ul>
+          <hr class="my-2">
         </li>
       </ul>
     </div>
 
-    <div v-if="countriesByLanguage.length" class="mt-4">
-      <h2>Países que falam {{ selectedLanguage }}:</h2>
-      <ul>
+    <div v-if="countriesByLanguage.length || query === ''" class="mt-4">
+      <h2 v-if="countriesByLanguage.length">Países que falam {{ selectedLanguage }}:</h2>
+      <ul v-if="countriesByLanguage.length">
         <li v-for="country in countriesByLanguage" :key="country.cca3">
           {{ country.name }}
         </li>
@@ -39,6 +41,7 @@
     </div>
   </div>
 </template>
+
 
 <script>
 import { ref } from "vue";
