@@ -42,19 +42,13 @@ const dropdownItems = ref([
     slot: 'account',
     disabled: true
   }], [{
-    label: 'Settings',
-    icon: 'i-heroicons-cog-8-tooth'
-  }], [{
-    label: 'Documentation',
-    icon: 'i-heroicons-book-open'
+    label: 'Meus dados',
+    icon: 'i-heroicons-user-solid'
   }, {
-    label: 'Changelog',
-    icon: 'i-heroicons-megaphone'
-  }, {
-    label: 'Status',
-    icon: 'i-heroicons-signal'
+    label: 'Ver repositório',
+    icon: 'i-heroicons-computer-desktop-20-solid'
   }], [{
-    label: 'Sign out',
+    label: 'Sair',
     icon: 'i-heroicons-arrow-left-on-rectangle'
   }]
 ]);
