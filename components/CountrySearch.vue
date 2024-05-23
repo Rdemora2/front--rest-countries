@@ -16,11 +16,9 @@
           <p class="text-green-400"><strong>País:</strong></p>
           <h3>{{ country.name }}</h3>
           <p class="text-green-400"><strong>Idioma:</strong></p>
-          <ul>
+          <ul v-for="(lang, code) in country.languages" @click="fetchCountriesByLanguage(lang)">
             <li
-              v-for="(lang, code) in country.languages"
               :key="code"
-              @click="fetchCountriesByLanguage(lang)"
               class="cursor-pointer text-blue-500"
             >
               {{ lang }}
@@ -64,10 +62,122 @@ export default {
       }
     };
 
-    const fetchCountriesByLanguage = async (language) => {
-      selectedLanguage.value = language;
-      countriesByLanguage.value = await searchCountriesByLanguage(language);
-    };
+    const languageMap = {
+  "Africâner": "Afrikaans",
+  "Albanês": "Albanian",
+  "Amárico": "Amharic",
+  "Árabe": "Arabic",
+  "Armênio": "Armenian",
+  "Azerbaijano": "Azerbaijani",
+  "Basco": "Basque",
+  "Bielorrusso": "Belarusian",
+  "Bengali": "Bengali",
+  "Bósnio": "Bosnian",
+  "Búlgaro": "Bulgarian",
+  "Catalão": "Catalan",
+  "Cebuano": "Cebuano",
+  "Chichewa": "Chichewa",
+  "Chinês": "Chinese",
+  "Córsico": "Corsican",
+  "Croata": "Croatian",
+  "Tcheco": "Czech",
+  "Dinamarquês": "Danish",
+  "Holandês": "Dutch",
+  "Inglês": "English",
+  "Esperanto": "Esperanto",
+  "Estoniano": "Estonian",
+  "Filipino": "Filipino",
+  "Finlandês": "Finnish",
+  "Francês": "French",
+  "Frísio": "Frisian",
+  "Galego": "Galician",
+  "Georgiano": "Georgian",
+  "Alemão": "German",
+  "Grego": "Greek",
+  "Guzerate": "Gujarati",
+  "Haitiano": "Haitian Creole",
+  "Hausa": "Hausa",
+  "Havaiano": "Hawaiian",
+  "Hebraico": "Hebrew",
+  "Hindi": "Hindi",
+  "Hmong": "Hmong",
+  "Húngaro": "Hungarian",
+  "Islandês": "Icelandic",
+  "Igbo": "Igbo",
+  "Indonésio": "Indonesian",
+  "Irlandês": "Irish",
+  "Italiano": "Italian",
+  "Japonês": "Japanese",
+  "Javanês": "Javanese",
+  "Canarês": "Kannada",
+  "Cazaque": "Kazakh",
+  "Khmer": "Khmer",
+  "Kinyarwanda": "Kinyarwanda",
+  "Coreano": "Korean",
+  "Curdo (Kurmanji)": "Kurdish (Kurmanji)",
+  "Quirguiz": "Kyrgyz",
+  "Laosiano": "Lao",
+  "Latim": "Latin",
+  "Letão": "Latvian",
+  "Lituano": "Lithuanian",
+  "Luxemburguês": "Luxembourgish",
+  "Macedônio": "Macedonian",
+  "Malgaxe": "Malagasy",
+  "Malaio": "Malay",
+  "Malaiala": "Malayalam",
+  "Maltês": "Maltese",
+  "Maori": "Maori",
+  "Marata": "Marathi",
+  "Mongol": "Mongolian",
+  "Mianmarense (Birmanês)": "Myanmar (Burmese)",
+  "Nepalês": "Nepali",
+  "Norueguês": "Norwegian",
+  "Pastó": "Pashto",
+  "Persa": "Persian",
+  "Polonês": "Polish",
+  "Português": "Portuguese",
+  "Panjabi": "Punjabi",
+  "Romeno": "Romanian",
+  "Russo": "Russian",
+  "Samoano": "Samoan",
+  "Gaélico Escocês": "Scots Gaelic",
+  "Sérvio": "Serbian",
+  "Soto do Sul": "Sesotho",
+  "Shona": "Shona",
+  "Sindhi": "Sindhi",
+  "Cingalês": "Sinhala",
+  "Eslovaco": "Slovak",
+  "Esloveno": "Slovenian",
+  "Somali": "Somali",
+  "Espanhol": "Spanish",
+  "Sundanês": "Sundanese",
+  "Suaíli": "Swahili",
+  "Sueco": "Swedish",
+  "Tadjique": "Tajik",
+  "Tâmil": "Tamil",
+  "Telugo": "Telugu",
+  "Tailandês": "Thai",
+  "Turco": "Turkish",
+  "Ucraniano": "Ukrainian",
+  "Urdu": "Urdu",
+  "Uzbeque": "Uzbek",
+  "Vietnamita": "Vietnamese",
+  "Galês": "Welsh",
+  "Xhosa": "Xhosa",
+  "Iídiche": "Yiddish",
+};
+
+
+const fetchCountriesByLanguage = async (language) => {
+  const apiLanguage = languageMap[language];
+  if (apiLanguage) {
+    selectedLanguage.value = language;
+    countriesByLanguage.value = await searchCountriesByLanguage(apiLanguage);
+  } else {
+    console.error("Language not supported by API:", language);
+  }
+};
+
 
     const showResults = ref(false);
 

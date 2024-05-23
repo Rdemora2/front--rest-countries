@@ -435,7 +435,7 @@ const languageTranslations = {
 
 export const searchCountry = async (query) => {
   try {
-    const response = await api.get(`/name/${query}`);
+    const response = await api.get(`/translation/${query}`);
     return response.data.map(country => ({
       name: country.translations.por.common,
       officialName: country.translations.por.official,
