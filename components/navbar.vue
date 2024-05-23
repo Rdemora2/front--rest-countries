@@ -19,7 +19,7 @@
     </UHorizontalNavigation>
 
     <div class="w-1/6 flex flex-row h-full align-center">
-      <UDropdown :items="dropdownItems" :popper="{ placement: 'bottom-start' }">
+      <UDropdown v-if="isRegistered" :items="dropdownItems" :popper="{ placement: 'bottom-start' }">
         <UAvatar :size="'md'" :alt="userName" />
       </UDropdown>
     </div>
@@ -38,18 +38,20 @@ import { ref, onMounted, watchEffect } from 'vue';
 
 const dropdownItems = ref([
   [{
-    label: 'ben@example.com',
+    label: 'Olá, usuário',
     slot: 'account',
     disabled: true
   }], [{
     label: 'Meus dados',
-    icon: 'i-heroicons-user-solid'
+    icon: 'i-heroicons-user-solid',
+    click: () => viewProfile()
   }, {
     label: 'Ver repositório',
     icon: 'i-heroicons-computer-desktop-20-solid'
   }], [{
     label: 'Sair',
-    icon: 'i-heroicons-arrow-left-on-rectangle'
+    icon: 'i-heroicons-arrow-left-on-rectangle',
+    click: () => logout()
   }]
 ]);
 
@@ -71,6 +73,7 @@ const filteredLinks = [
 let isRegistered = ref(process.client ? localStorage.getItem("registered") === "true" : false);
 let userMenuOpen = ref(false);
 let userName = ref("");
+let petType = ref("");
 
 const getUserDataFromLocalStorage = () => {
   if (process.client) {
@@ -78,6 +81,7 @@ const getUserDataFromLocalStorage = () => {
     if (formDataJson) {
       const formData = JSON.parse(formDataJson);
       userName.value = formData.name;
+      petType.value = formData.petType
       isRegistered.value = true;
       dropdownItems.value[0][0].label = `Olá, ${userName.value}`;
     }
@@ -97,6 +101,7 @@ const toggleUserMenu = () => {
 };
 
 const viewProfile = () => {
+  alert(`Nome: ${userName.value}\n, dono de um ${petType.value}\n`);
 };
 
 const logout = () => {
