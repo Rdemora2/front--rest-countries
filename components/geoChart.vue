@@ -12,14 +12,15 @@ import L from "leaflet";
 export default defineComponent({
   name: "LMap",
   props: {
-    markers: {
-      type: Array,
+    geojson: {
+      type: Object,
       required: false,
-      default: () => [],
+      default: () => ({}),
     },
   },
   setup(props) {
     let map = null;
+    let geojsonLayer = null;
 
     onMounted(() => {
       createMapLayer();
@@ -38,17 +39,14 @@ export default defineComponent({
           '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors',
       }).addTo(map);
 
-      if (props.markers.length) {
-        setMarkers();
+      if (props.geojson) {
+        setGeoJSON();
       }
     };
 
-    const setMarkers = () => {
-      props.markers.forEach((marker) => {
-        L.marker([marker.latitude, marker.longitude])
-          .addTo(map)
-          .bindPopup(marker.descricao);
-      });
+    const setGeoJSON = () => {
+      geojsonLayer = L.geoJSON(props.geojson).addTo(map);
+      map.fitBounds(geojsonLayer.getBounds());
     };
   },
 });
