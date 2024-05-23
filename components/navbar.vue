@@ -45,9 +45,6 @@ const dropdownItems = ref([
     label: 'Meus dados',
     icon: 'i-heroicons-user-solid',
     to: "/userData"
-  }, {
-    label: 'Ver repositório',
-    icon: 'i-heroicons-computer-desktop-20-solid'
   }], [{
     label: 'Sair',
     icon: 'i-heroicons-arrow-left-on-rectangle',
