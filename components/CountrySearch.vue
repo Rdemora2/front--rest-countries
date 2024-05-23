@@ -13,6 +13,7 @@
       <h2 v-if="showResults && countries.length > 0">Resultados da Busca:</h2>
       <ul v-if="showResults">
         <li v-for="country in countries" :key="country.cca3">
+          <hr class="my-2">
           <p class="text-green-400"><strong>País:</strong></p>
           <h3>{{ country.name }}</h3>
           <p class="text-green-400"><strong>Idioma:</strong></p>
@@ -24,19 +25,21 @@
               {{ lang }}
             </li>
           </ul>
-          <hr class="my-2">
         </li>
       </ul>
       <p v-if="countries.length <= 0">Nenhum país encontrado.</p>
     </div>
 
-    <div v-if="countriesByLanguage.length || query === ''" class="mt-4">
-      <h2 v-if="countriesByLanguage.length">Países que falam {{ selectedLanguage }}:</h2>
-      <ul v-if="countriesByLanguage.length">
-        <li v-for="country in countriesByLanguage" :key="country.cca3">
-          {{ country.name }}
-        </li>
-      </ul>
+    <div v-if="modalOpen" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+      <div class="bg-blue p-8 rounded-lg">
+        <h2 class="text-xl font-bold mb-4 text-green-400">Países que falam {{ selectedLanguage }}</h2>
+        <ul>
+          <li v-for="country in countriesByLanguage" :key="country.cca3">
+            {{ country.name }}
+          </li>
+        </ul>
+        <UButton @click="modalOpen = false" class="mt-4 text-blue-500">Fechar</UButton>
+      </div>
     </div>
   </div>
 </template>
@@ -52,6 +55,7 @@ export default {
     const countries = ref([]);
     const countriesByLanguage = ref([]);
     const selectedLanguage = ref("");
+    const modalOpen = ref(false);
 
     const onSearch = async () => {
       if (query.value.length > 2) {
@@ -168,16 +172,16 @@ export default {
 };
 
 
-const fetchCountriesByLanguage = async (language) => {
-  const apiLanguage = languageMap[language];
-  if (apiLanguage) {
-    selectedLanguage.value = language;
-    countriesByLanguage.value = await searchCountriesByLanguage(apiLanguage);
-  } else {
-    console.error("Language not supported by API:", language);
-  }
-};
-
+    const fetchCountriesByLanguage = async (language) => {
+      const apiLanguage = languageMap[language];
+      if (apiLanguage) {
+        selectedLanguage.value = language;
+        countriesByLanguage.value = await searchCountriesByLanguage(apiLanguage);
+        modalOpen.value = true;
+      } else {
+        console.error("Language not supported by API:", language);
+      }
+    };
 
     const showResults = ref(false);
 
@@ -188,7 +192,8 @@ const fetchCountriesByLanguage = async (language) => {
       selectedLanguage,
       onSearch,
       fetchCountriesByLanguage,
-      showResults
+      showResults,
+      modalOpen
     };
   },
   watch: {
