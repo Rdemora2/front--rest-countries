@@ -37,7 +37,7 @@
         <li>Vue 3</li>
         <li>Nuxt 3</li>
         <li>Nuxt UI</li>
-        <li>Docker</li>
+        <li>Leaflet</li>
         <li>date-fns</li>
         <li>cpf-cnpj-validator</li>
       </ul>
