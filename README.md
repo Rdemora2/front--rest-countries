@@ -1,75 +1,82 @@
-# Nuxt 3 Minimal Starter
+# Frontend API REST Countries
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+## Sobre o Projeto
 
-## Setup
+Este projeto visa fornecer uma plataforma web abrangente que permite aos usuários realizar diversas operações relacionadas a países, desde cadastro de pets até exploração geográfica e visualização de dados estatísticos. Abaixo está uma descrição detalhada de cada componente:
 
-Make sure to install the dependencies:
+### Cadastro
+
+Uma página com um formulário de cadastro completo que inclui campos para data de nascimento, nome completo, CPF, tipo e raça do animal de estimação, renda mensal e informações de endereço. O formulário fornece validação em tempo real para garantir a precisão das informações antes da submissão.
+
+### Exploração Geográfica
+
+1. **Lista de Países e Capitais da América:** Uma página que apresenta uma lista dos países da América e suas respectivas capitais. Ao clicar em um país, uma nova aba é aberta mostrando o Google Maps centrado no país selecionado, permitindo aos usuários explorarem visualmente a geografia do país.
+   
+2. **Busca por País e Idioma:** Os usuários podem pesquisar por países inserindo o nome em um campo de texto. A aplicação irá encontrar o país correspondente ou sugerir países com nomes similares. Além disso, ao clicar em um dos idiomas oficiais listados para um país, a aplicação apresenta uma lista dos países que compartilham o mesmo idioma.
+
+### Visualização de Dados Geográficos
+
+Uma página com gráficos interativos que mostram a área e a população de cada país em um mapa demográfico dividido por continente. Esses gráficos fornecem uma representação visual das diferenças entre os países em termos de área territorial e população, permitindo uma compreensão mais intuitiva das disparidades geográficas.
+
+## Tecnologias Utilizadas
+
+### Frontend
+- Vue 3
+- [Nuxt 3](https://nuxt.com/docs/getting-started/introduction)
+- Nuxt UI
+- Leaflet
+
+## Como Executar o Projeto
+
+### Pré-requisitos: npm/yarn
 
 ```bash
-# npm
 npm install
 
-# pnpm
-pnpm install
+# ou
 
-# yarn
 yarn install
-
-# bun
-bun install
 ```
 
-## Development Server
+## Servidor de desenvolvimento
 
-Start the development server on `http://localhost:3000`:
+Inicia o servidor de desenvolvimento:
 
 ```bash
-# npm
 npm run dev
 
-# pnpm
-pnpm run dev
+# ou
 
-# yarn
 yarn dev
-
-# bun
-bun run dev
 ```
 
-## Production
+## Produção
 
-Build the application for production:
+Builda o app para produção:
 
 ```bash
-# npm
 npm run build
 
-# pnpm
-pnpm run build
+# ou
 
-# yarn
 yarn build
-
-# bun
-bun run build
 ```
 
-Locally preview production build:
+Preview local do build de produção:
 
 ```bash
-# npm
 npm run preview
 
-# pnpm
-pnpm run preview
+# ou
 
-# yarn
 yarn preview
-
-# bun
-bun run preview
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+# Porta utilizada
+- 3000
+
+# Autor
+
+Roberto de Moraes
+
+https://www.linkedin.com/in/robertomoraeszarzur/
