@@ -17,7 +17,6 @@
         id="street"
         v-model="formData.street"
         required
-        disabled
       />
     </div>
     <div class="mt-3">
@@ -27,7 +26,6 @@
         id="neighborhood"
         v-model="formData.neighborhood"
         required
-        disabled
       />
     </div>
     <div class="mt-3">
@@ -42,7 +40,6 @@
         v-model="formData.state"
         maxlength="2"
         required
-        disabled
       />
     </div>
     <UButtonGroup size="xl" orientation="horizontal">
