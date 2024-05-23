@@ -1,8 +1,8 @@
 <template>
   <div
-    class="container mx-auto px-4 py-8 bg-gray-900 min-h-screen flex flex-wrap justify-center"
+    class="container mx-auto px-4 py-8 bg-gray-900 min-h-screen flex flex-wrap flex-col justify-center"
   >
-    <UCard class="mb-12 mx-4 w-80 text-center">
+    <UCard class="py-8 mx-auto w-80 h-fit text-center">
       <template #header>
         <h2 class="text-2xl font-bold mb-4 text-white">
           Parabéns! Você está autenticado
