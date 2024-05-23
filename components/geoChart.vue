@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container mx-auto px-8 flex flex-col justify-center h-96 w-4/6">
     <div id="mapContainer"></div>
   </div>
 </template>
@@ -54,7 +54,6 @@ export default defineComponent({
 
 <style scoped>
 #mapContainer {
-  width: 100vw;
-  height: calc(100vh - 50px);
+  height: calc(80vh - 7.3rem);
 }
 </style>
