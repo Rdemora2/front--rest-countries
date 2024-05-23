@@ -2,7 +2,7 @@
   <div class="w-full bg-blue h-18 flex flex-row">
     <div class="w-1/6"></div>
 
-    <UHorizontalNavigation v-if="isRegistered && $route.path !== '/userData'" :links="filteredLinks"
+    <UHorizontalNavigation v-if="isRegistered" :links="filteredLinks"
       class="flex justify-center items-center h-full w-4/6">
       <template #default="{ link }">
         <span class="group-hover:text-primary relative text-base md:text-base lg:text-lg xl:text-lg">
@@ -18,8 +18,8 @@
       </template>
     </UHorizontalNavigation>
 
-    <div class="w-1/6 flex flex-row h-full align-center">
-      <UDropdown v-if="isRegistered" :items="dropdownItems" :popper="{ placement: 'bottom-start' }">
+    <div class="hv w-1/6 flex flex-row h-full align-center">
+      <UDropdown class="drop" v-if="isRegistered" :items="dropdownItems" :popper="{ placement: 'bottom-start' }">
         <UAvatar :size="'md'" :alt="userName" />
       </UDropdown>
     </div>
@@ -30,6 +30,16 @@
 .flex-row {
   flex-direction: row;
   align-self: center;
+}
+
+.drop {
+  transition: border-color 0.3s ease-in-out;
+  border: 3px solid transparent;
+  border-radius: 9999px;
+}
+
+.drop:hover {
+  border-color: rgb(74, 222, 128);
 }
 </style>
 
