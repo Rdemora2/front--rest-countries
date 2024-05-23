@@ -58,7 +58,8 @@ const dropdownItems = ref([
   }], [{
     label: 'Sair',
     icon: 'i-heroicons-arrow-left-on-rectangle',
-    click: () => logout()
+    click: () => logout(),
+    to: "/"
   }]
 ]);
 
