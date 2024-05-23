@@ -416,7 +416,7 @@ const languageTranslations = {
   "chk": "Chuukês",
   "chp": "Chipewyan",
   "chr": "Cherokee",
-  "cho": "Choctaw"
+  "cho": "Choctaw",
   "deu": "Alemão",
   "eng": "Inglês",
   "fra": "Francês",
