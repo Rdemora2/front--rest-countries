@@ -44,6 +44,7 @@ const dropdownItems = ref([
   }], [{
     label: 'Meus dados',
     icon: 'i-heroicons-user-solid',
+    // to: "/userData",
     click: () => viewProfile()
   }, {
     label: 'Ver repositório',
