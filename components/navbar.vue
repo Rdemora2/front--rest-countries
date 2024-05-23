@@ -1,8 +1,6 @@
 <template>
   <div class="w-full bg-blue h-18 flex flex-row">
-    <div class="w-1/6">
-
-    </div>
+    <div class="w-1/6"></div>
 
     <UHorizontalNavigation v-if="isRegistered" :links="filteredLinks"
       class="flex justify-center items-center h-full w-4/6">
@@ -21,24 +19,9 @@
     </UHorizontalNavigation>
 
     <div class="w-1/6 flex flex-row h-full align-center">
-      <a @click="toggleUserMenu">
-        <UAvatar size="md" alt="Benjamin Canac" />
-      </a>
-      <UModal v-model="userMenuOpen" position="top-right">
-        <template #trigger="{ open }">
-          <UButton icon="user" @click="open" />
-        </template>
-        <div class="bg-white p-4">
-          <ul>
-            <li>
-              <UButton @click="viewProfile">Ver Meus Dados</UButton>
-            </li>
-            <li>
-              <UButton @click="logout">Sair</UButton>
-            </li>
-          </ul>
-        </div>
-      </UModal>
+      <UDropdown :items="dropdwonItems" :popper="{ placement: 'bottom-start' }">
+        <UAvatar :size="'md'" :alt="userName" />
+      </UDropdown>
     </div>
   </div>
 </template>
@@ -46,65 +29,71 @@
 <style scoped>
 .flex-row {
   flex-direction: row;
-  align-self: center
+  align-self: center;
 }
 </style>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, onMounted, watchEffect } from 'vue';
+
+const dropdwonItems = [
+  [{
+    label: 'ben@example.com',
+    slot: 'account',
+    disabled: true
+  }], [{
+    label: 'Settings',
+    icon: 'i-heroicons-cog-8-tooth'
+  }], [{
+    label: 'Documentation',
+    icon: 'i-heroicons-book-open'
+  }, {
+    label: 'Changelog',
+    icon: 'i-heroicons-megaphone'
+  }, {
+    label: 'Status',
+    icon: 'i-heroicons-signal'
+  }], [{
+    label: 'Sign out',
+    icon: 'i-heroicons-arrow-left-on-rectangle'
+  }]
+]
 
 const links = [
-  {
-    label: "Home",
-    to: "/",
-  },
-  {
-    label: "Cadastrar",
-    to: "/register",
-  },
-  {
-    label: "Países",
-    to: "/countries",
-  },
-  {
-    label: "Gráfico",
-    to: "/chart",
-  },
-  {
-    label: "Buscar",
-    to: "/search",
-  },
+  { label: "Home", to: "/" },
+  { label: "Cadastrar", to: "/register" },
+  { label: "Países", to: "/countries" },
+  { label: "Gráfico", to: "/chart" },
+  { label: "Buscar", to: "/search" },
 ];
 
 const filteredLinks = [
-  {
-    label: "Home",
-    to: "/",
-  },
-  {
-    label: "Países",
-    to: "/countries",
-  },
-  {
-    label: "Gráfico",
-    to: "/chart",
-  },
-  {
-    label: "Buscar",
-    to: "/search",
-  },
+  { label: "Home", to: "/" },
+  { label: "Países", to: "/countries" },
+  { label: "Gráfico", to: "/chart" },
+  { label: "Buscar", to: "/search" },
 ];
 
 let isRegistered = ref(process.client ? localStorage.getItem("registered") === "true" : false);
 let userMenuOpen = ref(false);
+let userName = ref("");
+
+const getUserDataFromLocalStorage = () => {
+  if (process.client) {
+    const formDataJson = localStorage.getItem("formData");
+    if (formDataJson) {
+      const formData = JSON.parse(formDataJson);
+      userName.value = formData.name || "Usuário";
+      isRegistered.value = true;
+    }
+  }
+};
 
 const checkLocalStorage = () => {
   const newValue = process.client ? localStorage.getItem("registered") === "true" : false;
-
   if (newValue !== isRegistered.value) {
     isRegistered.value = newValue;
   }
-
   setTimeout(checkLocalStorage, 1000);
 };
 
@@ -117,10 +106,15 @@ const viewProfile = () => {
 };
 
 const logout = () => {
-  // Lógica para fazer logout do usuário
+  localStorage.removeItem("registered");
+  localStorage.removeItem("formData");
+  isRegistered.value = false;
 };
 
-checkLocalStorage();
+onMounted(() => {
+  getUserDataFromLocalStorage();
+  checkLocalStorage();
+});
 
 watchEffect(() => {
   checkLocalStorage();
