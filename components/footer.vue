@@ -4,7 +4,7 @@
   >
     <div class="flex items-center">
       <span class="text-sm sm:text-base md:text-lg lg:text-xl xl:text-xl">
-        2024 | Developed by <b>Roberto de Moraes Zarzur</b>
+        2024 | Developed by <b class="text-green-400">Roberto de Moraes Zarzur</b>
       </span>
       <a
         href="https://github.com/Rdemora2"
