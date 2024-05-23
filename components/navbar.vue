@@ -44,8 +44,7 @@ const dropdownItems = ref([
   }], [{
     label: 'Meus dados',
     icon: 'i-heroicons-user-solid',
-    // to: "/userData",
-    click: () => viewProfile()
+    to: "/userData"
   }, {
     label: 'Ver repositório',
     icon: 'i-heroicons-computer-desktop-20-solid'
@@ -71,10 +70,8 @@ const filteredLinks = [
   { label: "Buscar", to: "/search" },
 ];
 
-let isRegistered = ref(process.client ? localStorage.getItem("registered") === "true" : false);
-let userMenuOpen = ref(false);
+let isRegistered = ref(process.client ? localStorage.getItem("registered") === "true" : false);;
 let userName = ref("");
-let petType = ref("");
 
 const getUserDataFromLocalStorage = () => {
   if (process.client) {
@@ -82,7 +79,6 @@ const getUserDataFromLocalStorage = () => {
     if (formDataJson) {
       const formData = JSON.parse(formDataJson);
       userName.value = formData.name;
-      petType.value = formData.petType
       isRegistered.value = true;
       dropdownItems.value[0][0].label = `Olá, ${userName.value}`;
     }
@@ -97,20 +93,12 @@ const checkLocalStorage = () => {
   setTimeout(checkLocalStorage, 1000);
 };
 
-const toggleUserMenu = () => {
-  userMenuOpen.value = !userMenuOpen.value;
-};
-
-const viewProfile = () => {
-  alert(`Nome: ${userName.value}\n, dono de um ${petType.value}\n`);
-};
-
 const logout = () => {
   localStorage.removeItem("registered");
   localStorage.removeItem("formData");
   isRegistered.value = false;
   userName.value = "";
-  dropdownItems.value[0][0].label = "rob@example.com";
+  dropdownItems.value[0][0].label = "";
 };
 
 onMounted(() => {
