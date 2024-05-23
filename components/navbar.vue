@@ -19,7 +19,7 @@
     </UHorizontalNavigation>
 
     <div class="w-1/6 flex flex-row h-full align-center">
-      <UDropdown :items="dropdwonItems" :popper="{ placement: 'bottom-start' }">
+      <UDropdown :items="dropdownItems" :popper="{ placement: 'bottom-start' }">
         <UAvatar :size="'md'" :alt="userName" />
       </UDropdown>
     </div>
@@ -36,7 +36,7 @@
 <script setup lang="ts">
 import { ref, onMounted, watchEffect } from 'vue';
 
-const dropdwonItems = [
+const dropdownItems = ref([
   [{
     label: 'ben@example.com',
     slot: 'account',
@@ -57,7 +57,7 @@ const dropdwonItems = [
     label: 'Sign out',
     icon: 'i-heroicons-arrow-left-on-rectangle'
   }]
-]
+]);
 
 const links = [
   { label: "Home", to: "/" },
@@ -83,8 +83,9 @@ const getUserDataFromLocalStorage = () => {
     const formDataJson = localStorage.getItem("formData");
     if (formDataJson) {
       const formData = JSON.parse(formDataJson);
-      userName.value = formData.name || "Usuário";
+      userName.value = formData.name;
       isRegistered.value = true;
+      dropdownItems.value[0][0].label = `Olá, ${userName.value}`;
     }
   }
 };
@@ -102,13 +103,14 @@ const toggleUserMenu = () => {
 };
 
 const viewProfile = () => {
-  // Lógica para visualizar os dados do usuário
 };
 
 const logout = () => {
   localStorage.removeItem("registered");
   localStorage.removeItem("formData");
   isRegistered.value = false;
+  userName.value = "";
+  dropdownItems.value[0][0].label = "rob@example.com";
 };
 
 onMounted(() => {
