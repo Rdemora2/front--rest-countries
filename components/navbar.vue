@@ -66,14 +66,14 @@ const links = [
   { label: "Home", to: "/" },
   { label: "Cadastrar", to: "/register" },
   { label: "Países", to: "/countries" },
-  { label: "Gráfico", to: "/chart" },
+  { label: "Mapa demográfico", to: "/demographicMap" },
   { label: "Buscar", to: "/search" },
 ];
 
 const filteredLinks = [
   { label: "Home", to: "/" },
   { label: "Países", to: "/countries" },
-  { label: "Gráfico", to: "/chart" },
+  { label: "Mapa demográfico", to: "/demographicMap" },
   { label: "Buscar", to: "/search" },
 ];
 
