@@ -71,6 +71,7 @@ npm run preview
 
 yarn preview
 ```
+Pronto!
 
 # Porta utilizada
 - 3000
