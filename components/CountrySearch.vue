@@ -13,9 +13,9 @@
       <h2 v-if="showResults && countries.length > 0">Resultados da Busca:</h2>
       <ul v-if="showResults">
         <li v-for="country in countries" :key="country.cca3">
-          <p><strong>País:</strong></p>
+          <p class="text-green-400"><strong>País:</strong></p>
           <h3>{{ country.name }}</h3>
-          <p><strong>Idioma:</strong></p>
+          <p class="text-green-400"><strong>Idioma:</strong></p>
           <ul>
             <li
               v-for="(lang, code) in country.languages"
