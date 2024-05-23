@@ -10,7 +10,7 @@
       @input="onSearch"
     />
     <div v-if="showResults" class="mt-4">
-      <h2 v-if="showResults">Resultados da Busca:</h2>
+      <h2 v-if="showResults && countries.length > 0">Resultados da Busca:</h2>
       <ul v-if="showResults">
         <li v-for="country in countries" :key="country.cca3">
           <p><strong>País:</strong></p>
@@ -29,6 +29,7 @@
           <hr class="my-2">
         </li>
       </ul>
+      <p v-if="countries.length <= 0">Nenhum país encontrado.</p>
     </div>
 
     <div v-if="countriesByLanguage.length || query === ''" class="mt-4">
