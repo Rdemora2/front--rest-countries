@@ -6,6 +6,13 @@
       Países da América
     </h1>
     <hr class="mb-8 border-green-400" />
+    
+    <div v-if="isLoading" class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+      <svg class="animate-spin-slow h-12 w-12 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+      </svg>
+    </div>
+    
     <div class="flex flex-row flex-wrap justify-around">
       <div
         v-for="country in countries"
@@ -52,23 +59,32 @@
   padding-left: 2rem;
   padding-right: 2rem;
 }
+
+.animate-spin-slow {
+  animation: spin-slow 2s linear infinite;
+}
+
+@keyframes spin-slow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
 </style>
 
 <script setup>
 import { ref } from "vue";
 import axios from "axios";
-import { GridLayout } from "vue-grid-layout";
 
+const isLoading = ref(true);
 const countries = ref([]);
 
 const fetchCountries = async () => {
   try {
-    const response = await axios.get(
-      "https://restcountries.com/v3.1/region/americas"
-    );
+    const response = await axios.get("https://restcountries.com/v3.1/region/americas");
     countries.value = response.data;
   } catch (error) {
     console.error("Erro ao obter países:", error);
+  } finally {
+    isLoading.value = false;
   }
 };
 
