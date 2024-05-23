@@ -1,28 +1,62 @@
 <template>
-  <div class="container mx-auto px-8 py-8 bg-gray-900 min-h-screen flex flex-wrap justify-center">
-    <UCard>
+  <div class="container mx-auto px-8 py-8 bg-gray-900 min-h-screen flex flex-wrap flex-col justify-center">
+    <UCard class="w-fit p-6 mx-auto">
       <template #header>
-        <h1 class="text-white text-xl font-bold mb-4">Dados do Usuário</h1>
+        <h1 class="text-white text-2xl font-bold text-center">Dados:</h1>
         <Placeholder class="h-8" />
       </template>
       <Placeholder class="h-32" />
-      <p class="text-white">Nome: {{ userData.name }}</p>
-      <p class="text-white">Data de Nascimento: {{ userData.dob }}</p>
-      <p class="text-white">CPF: {{ userData.cpf }}</p>
-      <p class="text-white">Tipo de Animal: {{ userData.petType }}</p>
-      <p v-if="userData.petBreed != Outro" class="text-white">Raça: {{ userData.petBreed }}</p>
-      <p v-if="userData.petBreed === Outro" class="text-white">Raça: {{ userData.otherBreed }}</p>
+      <p class="text-white">
+        <span class="font-bold text-green-400">Nome:</span>
+        <span class="ml-2">{{ userData.name }}</span>
+      </p>
+      <p class="text-white">
+        <span class="font-bold text-green-400">Nascimento:</span>
+        <span class="ml-2">{{ userData.dob }}</span>
+      </p>
+      <p class="text-white">
+        <span class="font-bold text-green-400">CPF:</span>
+        <span class="ml-2">{{ userData.cpf }}</span>
+      </p>
+      <p class="text-white">
+        <span class="font-bold text-green-400">Animal:</span>
+        <span class="ml-2">{{ userData.petType }}</span>
+      </p>
+      <p v-if="userData.petBreed != 'Outro'" class="text-white">
+        <span class="font-bold text-green-400">Raça:</span>
+        <span class="ml-2">{{ userData.petBreed }}</span>
+      </p>
+      <p v-if="userData.petBreed === 'Outro'" class="text-white">
+        <span class="font-bold text-green-400">Raça:</span>
+        <span class="ml-2">{{ userData.otherBreed }}</span>
+      </p>
       <template #footer>
         <Placeholder class="h-8" />
-        <p class="text-white">CEP: {{ userData.cep }}</p>
-        <p v-if="userData.street != ''" class="text-white">Rua: {{ userData.street }}</p>
-        <p v-if="userData.neighborhood != ''" class="text-white">Bairro: {{ userData.neighborhood }}</p>
-        <p v-if="userData.city != ''" class="text-white">Cidade: {{ userData.city }}</p>
-        <p v-if="userData.state != ''" class="text-white">UF: {{ userData.state }}</p>
+        <p class="text-white">
+          <span class="font-bold text-green-400">CEP:</span>
+          <span class="ml-2">{{ userData.cep }}</span>
+        </p>
+        <p v-if="userData.street != ''" class="text-white">
+          <span class="font-bold text-green-400">Rua:</span>
+          <span class="ml-2">{{ userData.street }}</span>
+        </p>
+        <p v-if="userData.neighborhood != ''" class="text-white">
+          <span class="font-bold text-green-400">Bairro:</span>
+          <span class="ml-2">{{ userData.neighborhood }}</span>
+        </p>
+        <p v-if="userData.city != ''" class="text-white">
+          <span class="font-bold text-green-400">Cidade:</span>
+          <span class="ml-2">{{ userData.city }}</span>
+        </p>
+        <p v-if="userData.state != ''" class="text-white">
+          <span class="font-bold text-green-400">Estado:</span>
+          <span class="ml-2">{{ userData.state }}</span>
+        </p>
       </template>
     </UCard>
   </div>
 </template>
+
 
 <script setup>
 import { ref, onMounted } from 'vue';
