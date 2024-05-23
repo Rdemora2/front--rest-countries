@@ -9,9 +9,9 @@
       v-model="query"
       @input="onSearch"
     />
-    <div v-if="countries.length || query === ''" class="mt-4">
-      <h2 v-if="countries.length">Resultados da Busca:</h2>
-      <ul v-if="countries.length">
+    <div v-if="showResults" class="mt-4">
+      <h2 v-if="showResults">Resultados da Busca:</h2>
+      <ul v-if="showResults">
         <li v-for="country in countries" :key="country.cca3">
           <p><strong>País:</strong></p>
           <h3>{{ country.name }}</h3>
@@ -42,7 +42,6 @@
   </div>
 </template>
 
-
 <script>
 import { ref } from "vue";
 import { searchCountry, searchCountriesByLanguage } from "../services/api";
@@ -59,6 +58,8 @@ export default {
       if (query.value.length > 2) {
         countries.value = await searchCountry(query.value);
         countriesByLanguage.value = [];
+      } else {
+        countries.value = [];
       }
     };
 
@@ -67,6 +68,8 @@ export default {
       countriesByLanguage.value = await searchCountriesByLanguage(language);
     };
 
+    const showResults = ref(false);
+
     return {
       query,
       countries,
@@ -74,8 +77,14 @@ export default {
       selectedLanguage,
       onSearch,
       fetchCountriesByLanguage,
+      showResults
     };
   },
+  watch: {
+    query(value) {
+      this.showResults = value.length > 0;
+    }
+  }
 };
 </script>
 
