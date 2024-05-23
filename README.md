@@ -50,6 +50,7 @@ npm run dev
 yarn dev
 ```
 
+obs: ao rodar esse comando, o servidor rodará em http://localhost:3000/
 ## Produção
 
 Builda o app para produção:
@@ -71,7 +72,6 @@ npm run preview
 
 yarn preview
 ```
-Pronto!
 
 # Porta utilizada
 - 3000
