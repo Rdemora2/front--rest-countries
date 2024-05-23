@@ -1,6 +1,6 @@
 <template>
   <div
-    class="container mx-auto px-4 py-8 bg-gray-900 min-h-screen flex flex-col flex-wrap justify-center"
+    class="container mx-auto px-8 py-8 bg-gray-900 min-h-screen flex flex-col flex-wrap justify-center"
   >
     <h1 class="text-left text-xl text-green-400 font-bold pb-8">
       Países da América
@@ -56,8 +56,6 @@
 .container {
   max-width: 100%;
   min-height: calc(100vh - 7.3rem);
-  padding-left: 2rem;
-  padding-right: 2rem;
 }
 
 .animate-spin-slow {
