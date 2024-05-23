@@ -2,7 +2,7 @@
   <div class="w-full bg-blue h-18 flex flex-row">
     <div class="w-1/6"></div>
 
-    <UHorizontalNavigation v-if="isRegistered" :links="filteredLinks"
+    <UHorizontalNavigation v-if="isRegistered && $route.path !== '/userData'" :links="filteredLinks"
       class="flex justify-center items-center h-full w-4/6">
       <template #default="{ link }">
         <span class="group-hover:text-primary relative text-base md:text-base lg:text-lg xl:text-lg">
