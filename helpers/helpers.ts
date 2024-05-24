@@ -22,6 +22,8 @@ export const step = ref(1);
 export const validAge = () => validateAge(formData.value.dob);
 export const cpfInvalid = ref(false);
 export const showMinValueWarning = ref(false);
+export const nextStepClicked = ref(false);
+export const submitClicked = ref(false);
 
 export function updateCpfFromChild(formattedCpf: string): void {
   formData.value.cpf = formattedCpf;
@@ -68,6 +70,7 @@ export async function fetchAddress(): Promise<void> {
 }
 
 export function nextStep(): void {
+  nextStepClicked.value = true;
   if (
     !cpfInvalid.value &&
     !showMinValueWarning.value &&
@@ -93,9 +96,17 @@ export function prevStep(): void {
 }
 
 export function handleSubmit(): void {
-  console.log("Formulário enviado:", formData.value);
-  saveToLocalStorage();
-  localStorage.setItem("registered", "true");
+  submitClicked.value = true;
+  if (
+    formData.value.cep &&
+    formData.value.street &&
+    formData.value.neighborhood &&
+    formData.value.state
+  ) {
+    console.log("Formulário enviado:", formData.value);
+    saveToLocalStorage();
+    localStorage.setItem("registered", "true");
+  }
 }
 
 function saveToLocalStorage() {

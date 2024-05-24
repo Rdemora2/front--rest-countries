@@ -10,6 +10,7 @@
         required
       />
     </div>
+    <p v-if="!formData.cep && submitClicked" class="text-red-500 text-sm mt-1">Campo obrigatório</p>
     <div class="mt-3">
       <label for="street">Rua</label>
       <UInput
@@ -19,6 +20,7 @@
         required
       />
     </div>
+    <p v-if="!formData.street && submitClicked" class="text-red-500 text-sm mt-1">Campo obrigatório</p>
     <div class="mt-3">
       <label for="neighborhood">Bairro</label>
       <UInput
@@ -28,10 +30,12 @@
         required
       />
     </div>
+    <p v-if="!formData.neighborhood && submitClicked" class="text-red-500 text-sm mt-1">Campo obrigatório</p>
     <div class="mt-3">
       <label for="city">Cidade</label>
       <UInput type="text" id="city" v-model="formData.city" required disabled />
     </div>
+    <p v-if="!formData.income && submitClicked" class="text-red-500 text-sm mt-1">Campo obrigatório</p>
     <div class="mt-3">
       <label for="state">Estado</label>
       <UInput
@@ -42,6 +46,7 @@
         required
       />
     </div>
+    <p v-if="!formData.state && submitClicked" class="text-red-500 text-sm mt-1">Campo obrigatório</p>
     <UButtonGroup size="xl" orientation="horizontal">
       <UButton class="mt-5 mr-5" @click="prevStep">Voltar</UButton>
       <UButton class="mt-5" @click="submitForm">Enviar</UButton>
@@ -78,15 +83,24 @@ import {
   formData,
   fetchAddress,
   handleSubmit,
+  submitClicked
 } from "@/helpers/helpers";
 
 let timerId: NodeJS.Timeout | null = null;
 const isOpen = ref(false);
 const router = useRouter();
 const submitForm = () => {
-  handleSubmit();
+  submitClicked.value = true;
+  if (
+    formData.value.cep &&
+    formData.value.street &&
+    formData.value.neighborhood &&
+    formData.value.state
+  ) {
+    handleSubmit();
   isOpen.value = true;
   startTimer();
+  }
 };
 
 const startTimer = () => {
