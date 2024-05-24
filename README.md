@@ -51,7 +51,6 @@ yarn dev
 ```
 
 obs: ao rodar esse comando, o servidor rodará em http://localhost:3000/
-## Produção
 
 Builda o app para produção:
 
