@@ -6,6 +6,7 @@
         type="text"
         id="cep"
         v-model="formData.cep"
+        @input="handleInput"
         @change="fetchAddress"
         required
       />
@@ -76,7 +77,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, computed, watch, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import {
   prevStep,
@@ -118,4 +119,22 @@ const redirectToIndex = () => {
   isOpen.value = false;
   router.push('/');
 };
+
+const formattedCep = ref("");
+
+const handleInput = (event: Event) => {
+  const input = event.target as HTMLInputElement;
+  formData.cep = input
+  const formatted = formatCep(input.value);
+  formData.cep = formatted;
+  input.value = formatted;
+};
+
+function formatCep(cep: string): string {
+  if (!cep) return "";
+
+  const numericCep = cep.replace(/[^\d]/g, "");
+
+  return numericCep.slice(0, 5) + "-" + numericCep.slice(5);
+}
 </script>

@@ -56,10 +56,15 @@ export function updateBreeds(): void {
 }
 
 export async function fetchAddress(): Promise<void> {
+  const cep = formData.value.cep.replace(/[^\d]/g, "");
+
+  if (cep.length !== 8) {
+    console.error("CEP inválido. O CEP deve conter 8 dígitos.");
+    return;
+  }
+
   try {
-    const response = await axios.get(
-      `https://viacep.com.br/ws/${formData.value.cep}/json/`
-    );
+    const response = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
     formData.value.street = response.data.logradouro;
     formData.value.neighborhood = response.data.bairro;
     formData.value.city = response.data.localidade;
