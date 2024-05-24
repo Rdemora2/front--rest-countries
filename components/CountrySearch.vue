@@ -31,13 +31,18 @@
     </div>
 
     <div v-if="modalOpen" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-      <div class="bg-blue p-8 rounded-lg">
+      <div class="bg-blue p-8 rounded-lg overflow-auto">
         <h2 class="text-xl font-bold mb-4 text-green-400">Países que falam {{ selectedLanguage }}</h2>
         <ul>
-          <li v-for="country in countriesByLanguage" :key="country.cca3">
+          <li v-for="country in paginatedCountries" :key="country.cca3">
             {{ country.name }}
           </li>
         </ul>
+        <div class="flex justify-between mt-4">
+          <UButton @click="prevPage" :disabled="currentPage === 1" class="mx-2 text-blue-500">Anterior</UButton>
+          <span>Página {{ currentPage }} de {{ totalPages }}</span>
+          <UButton @click="nextPage" :disabled="currentPage === totalPages" class="mx-2 text-blue-500">Próxima</UButton>
+        </div>
         <UButton @click="modalOpen = false" class="mt-4 text-blue-500">Fechar</UButton>
       </div>
     </div>
@@ -45,7 +50,7 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import { searchCountry, searchCountriesByLanguage } from "../services/api";
 
 export default {
@@ -56,6 +61,8 @@ export default {
     const countriesByLanguage = ref([]);
     const selectedLanguage = ref("");
     const modalOpen = ref(false);
+    const currentPage = ref(1);
+    const itemsPerPage = ref(10);
 
     const onSearch = async () => {
       if (query.value.length > 2) {
@@ -178,8 +185,31 @@ export default {
         selectedLanguage.value = language;
         countriesByLanguage.value = await searchCountriesByLanguage(apiLanguage);
         modalOpen.value = true;
+        currentPage.value = 1;
       } else {
         console.error("Language not supported by API:", language);
+      }
+    };
+
+    const paginatedCountries = computed(() => {
+      const start = (currentPage.value - 1) * itemsPerPage.value;
+      const end = start + itemsPerPage.value;
+      return countriesByLanguage.value.slice(start, end);
+    });
+
+    const totalPages = computed(() => {
+      return Math.ceil(countriesByLanguage.value.length / itemsPerPage.value);
+    });
+
+    const nextPage = () => {
+      if (currentPage.value < totalPages.value) {
+        currentPage.value += 1;
+      }
+    };
+
+    const prevPage = () => {
+      if (currentPage.value > 1) {
+        currentPage.value -= 1;
       }
     };
 
@@ -193,7 +223,12 @@ export default {
       onSearch,
       fetchCountriesByLanguage,
       showResults,
-      modalOpen
+      modalOpen,
+      paginatedCountries,
+      currentPage,
+      totalPages,
+      nextPage,
+      prevPage
     };
   },
   watch: {
