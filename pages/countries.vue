@@ -2,13 +2,27 @@
   <div
     class="container mx-auto px-8 py-8 bg-gray-900 min-h-screen flex flex-col flex-wrap justify-center"
   >
-    
-    <div v-if="isLoading" class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-      <svg class="animate-spin-slow h-12 w-12 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+    <div
+      v-if="isLoading"
+      class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
+    >
+      <svg
+        class="animate-spin-slow h-12 w-12 text-white"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+      >
+        <circle
+          class="opacity-25"
+          cx="12"
+          cy="12"
+          r="10"
+          stroke="currentColor"
+          stroke-width="4"
+        ></circle>
       </svg>
     </div>
-    
+
     <div class="flex flex-row flex-wrap justify-around">
       <div
         v-for="country in countries"
@@ -28,7 +42,9 @@
           </template>
           <template #footer>
             <div class="flex flex-col justify-around h-20">
-              <a class="font-bold text-base" @click="openGoogleMaps(country)">{{ country.name.common }}</a>
+              <a class="font-bold text-base" @click="openGoogleMaps(country)">{{
+                country.name.common
+              }}</a>
               <p class="text-sm">{{ country.capital[0] }}</p>
             </div>
             <Placeholder class="h-8" />
@@ -59,8 +75,12 @@
 }
 
 @keyframes spin-slow {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 </style>
 
@@ -73,7 +93,9 @@ const countries = ref([]);
 
 const fetchCountries = async () => {
   try {
-    const response = await axios.get("https://restcountries.com/v3.1/region/americas");
+    const response = await axios.get(
+      "https://restcountries.com/v3.1/region/americas"
+    );
     countries.value = response.data;
   } catch (error) {
     console.error("Erro ao obter países:", error);

@@ -1,5 +1,7 @@
 <template>
-  <div class="container mx-auto px-8 py-8 bg-gray-900 min-h-screen flex flex-wrap flex-col justify-center">
+  <div
+    class="container mx-auto px-8 py-8 bg-gray-900 min-h-screen flex flex-wrap flex-col justify-center"
+  >
     <UCard class="w-fit p-3 mx-auto">
       <template #header>
         <h1 class="text-white text-2xl font-bold text-center">Dados:</h1>
@@ -57,14 +59,13 @@
   </div>
 </template>
 
-
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted } from "vue";
 
 const userData = ref({});
 
 const getLocalStorageData = () => {
-  const localStorageData = localStorage.getItem('formData');
+  const localStorageData = localStorage.getItem("formData");
   if (localStorageData) {
     userData.value = JSON.parse(localStorageData);
   }

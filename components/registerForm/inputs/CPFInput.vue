@@ -28,7 +28,7 @@ const handleInput = (event: Event) => {
   cpfInvalid.value = !isValid;
   emits("updateCpf", formatted);
   emits("cpfInvalid", !isValid);
-  
+
   input.value = formatted;
 };
 </script>

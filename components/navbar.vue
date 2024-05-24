@@ -2,24 +2,40 @@
   <div class="w-full bg-blue h-18 flex flex-row">
     <div class="w-1/6"></div>
 
-    <UHorizontalNavigation v-if="isRegistered" :links="filteredLinks"
-      class="flex justify-center items-center h-full w-4/6">
+    <UHorizontalNavigation
+      v-if="isRegistered"
+      :links="filteredLinks"
+      class="flex justify-center items-center h-full w-4/6"
+    >
       <template #default="{ link }">
-        <span class="group-hover:text-primary relative text-base md:text-base lg:text-lg xl:text-lg">
+        <span
+          class="group-hover:text-primary relative text-base md:text-base lg:text-lg xl:text-lg"
+        >
           {{ link.label }}
         </span>
       </template>
     </UHorizontalNavigation>
-    <UHorizontalNavigation v-else :links="links" class="flex justify-center items-center h-full">
+    <UHorizontalNavigation
+      v-else
+      :links="links"
+      class="flex justify-center items-center h-full"
+    >
       <template #default="{ link }">
-        <span class="group-hover:text-primary relative text-base md:text-base lg:text-lg xl:text-lg">
+        <span
+          class="group-hover:text-primary relative text-base md:text-base lg:text-lg xl:text-lg"
+        >
           {{ link.label }}
         </span>
       </template>
     </UHorizontalNavigation>
 
     <div class="hv w-1/6 flex flex-row h-full align-center">
-      <UDropdown class="drop" v-if="isRegistered" :items="dropdownItems" :popper="{ placement: 'bottom-start' }">
+      <UDropdown
+        class="drop"
+        v-if="isRegistered"
+        :items="dropdownItems"
+        :popper="{ placement: 'bottom-start' }"
+      >
         <UAvatar :size="'md'" :alt="userName" />
       </UDropdown>
     </div>
@@ -44,23 +60,31 @@
 </style>
 
 <script setup lang="ts">
-import { ref, onMounted, watchEffect } from 'vue';
+import { ref, onMounted, watchEffect } from "vue";
 
 const dropdownItems = ref([
-  [{
-    label: 'Olá, usuário',
-    slot: 'account',
-    disabled: true
-  }], [{
-    label: 'Meus dados',
-    icon: 'i-heroicons-user-solid',
-    to: "/userData"
-  }], [{
-    label: 'Sair',
-    icon: 'i-heroicons-arrow-left-on-rectangle',
-    click: () => logout(),
-    to: "/"
-  }]
+  [
+    {
+      label: "Olá, usuário",
+      slot: "account",
+      disabled: true,
+    },
+  ],
+  [
+    {
+      label: "Meus dados",
+      icon: "i-heroicons-user-solid",
+      to: "/userData",
+    },
+  ],
+  [
+    {
+      label: "Sair",
+      icon: "i-heroicons-arrow-left-on-rectangle",
+      click: () => logout(),
+      to: "/",
+    },
+  ],
 ]);
 
 const links = [
@@ -78,7 +102,9 @@ const filteredLinks = [
   { label: "Buscar", to: "/search" },
 ];
 
-let isRegistered = ref(process.client ? localStorage.getItem("registered") === "true" : false);;
+let isRegistered = ref(
+  process.client ? localStorage.getItem("registered") === "true" : false
+);
 let userName = ref("");
 
 const getUserDataFromLocalStorage = () => {
@@ -94,7 +120,9 @@ const getUserDataFromLocalStorage = () => {
 };
 
 const checkLocalStorage = () => {
-  const newValue = process.client ? localStorage.getItem("registered") === "true" : false;
+  const newValue = process.client
+    ? localStorage.getItem("registered") === "true"
+    : false;
   if (newValue !== isRegistered.value) {
     isRegistered.value = newValue;
   }
@@ -105,12 +133,12 @@ const checkUserNameLocalStorage = () => {
   if (process.client) {
     const formDataJson = localStorage.getItem("formData");
     if (formDataJson) {
-    const formData = JSON.parse(formDataJson);
-    const newValue = formData.name
-    if (newValue !== userName.value) {
-      userName.value = newValue;
+      const formData = JSON.parse(formDataJson);
+      const newValue = formData.name;
+      if (newValue !== userName.value) {
+        userName.value = newValue;
+      }
     }
-  }
   }
   setTimeout(checkUserNameLocalStorage, 3000);
 };
@@ -126,11 +154,11 @@ const logout = () => {
 onMounted(() => {
   getUserDataFromLocalStorage();
   checkLocalStorage();
-  checkUserNameLocalStorage()
+  checkUserNameLocalStorage();
 });
 
 watchEffect(() => {
   checkLocalStorage();
-  checkUserNameLocalStorage()
+  checkUserNameLocalStorage();
 });
 </script>

@@ -1,7 +1,9 @@
 <template>
-  <div class="container mx-auto px-8 py-8 bg-gray-900 min-h-screen flex flex-wrap justify-center">
+  <div
+    class="container mx-auto px-8 py-8 bg-gray-900 min-h-screen flex flex-wrap justify-center"
+  >
     <CountrySearch />
-    </div>
+  </div>
 </template>
 
 <style scoped>
@@ -11,7 +13,7 @@
 </style>
 
 <script>
-import CountrySearch from '~/components/CountrySearch.vue';
+import CountrySearch from "~/components/CountrySearch.vue";
 
 export default {
   components: {

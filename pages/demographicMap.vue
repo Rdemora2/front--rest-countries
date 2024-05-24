@@ -2,7 +2,9 @@
   <div class="container mx-auto px-8 bg-gray-900 flex flex-col justify-around">
     <div class="selector-container mx-auto mt-5">
       <h1></h1>
-      <label for="continentSelector" class="text-white">Selecione o continente:</label>
+      <label for="continentSelector" class="text-white"
+        >Selecione o continente:</label
+      >
       <select id="continentSelector" v-model="selectedContinent">
         <option value="África">Africa</option>
         <option value="América">Americas</option>
@@ -74,7 +76,7 @@ export default defineComponent({
 .update-button {
   margin-left: 10px;
   padding: 5px 10px;
-  background-color: #4CAF50;
+  background-color: #4caf50;
   border: none;
   color: white;
   text-align: center;
