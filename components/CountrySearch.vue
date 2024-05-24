@@ -85,7 +85,7 @@ export default {
       if (query.value.length > 2) {
         countries.value = await searchCountry(query.value);
         countriesByLanguage.value = [];
-      } else {
+      } else if (query.value === "") {
         countries.value = [];
       }
     };
