@@ -5,8 +5,7 @@
 </template>
 
 <style scoped>
-.container {
-  max-width: 100%;
+.min-h-screen {
   min-height: calc(100vh - 7.3rem);
 }
 </style>
