@@ -52,26 +52,6 @@ yarn dev
 
 obs: ao rodar esse comando, o servidor rodará em http://localhost:3000/
 
-Builda o app para produção:
-
-```bash
-npm run build
-
-# ou
-
-yarn build
-```
-
-Preview local do build de produção:
-
-```bash
-npm run preview
-
-# ou
-
-yarn preview
-```
-
 # Porta utilizada
 - 3000
 
