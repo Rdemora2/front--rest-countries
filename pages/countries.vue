@@ -2,10 +2,6 @@
   <div
     class="container mx-auto px-8 py-8 bg-gray-900 min-h-screen flex flex-col flex-wrap justify-center"
   >
-    <h1 class="text-left text-xl text-green-400 font-bold pb-8">
-      Países da América
-    </h1>
-    <hr class="mb-8 border-green-400" />
     
     <div v-if="isLoading" class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
       <svg class="animate-spin-slow h-12 w-12 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">

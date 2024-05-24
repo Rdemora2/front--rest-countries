@@ -37,9 +37,7 @@
         <li>Vue 3</li>
         <li>Nuxt 3</li>
         <li>Nuxt UI</li>
-        <li>Docker</li>
-        <li>date-fns</li>
-        <li>cpf-cnpj-validator</li>
+        <li>Leaflet</li>
       </ul>
     </UCard>
   </div>

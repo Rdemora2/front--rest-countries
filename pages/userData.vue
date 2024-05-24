@@ -1,6 +1,6 @@
 <template>
   <div class="container mx-auto px-8 py-8 bg-gray-900 min-h-screen flex flex-wrap flex-col justify-center">
-    <UCard class="w-fit p-6 mx-auto">
+    <UCard class="w-fit p-3 mx-auto">
       <template #header>
         <h1 class="text-white text-2xl font-bold text-center">Dados:</h1>
         <Placeholder class="h-8" />
