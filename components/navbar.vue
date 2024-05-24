@@ -101,6 +101,20 @@ const checkLocalStorage = () => {
   setTimeout(checkLocalStorage, 1000);
 };
 
+const checkUserNameLocalStorage = () => {
+  if (process.client) {
+    const formDataJson = localStorage.getItem("formData");
+    if (formDataJson) {
+    const formData = JSON.parse(formDataJson);
+    const newValue = formData.name
+    if (newValue !== userName.value) {
+      userName.value = newValue;
+    }
+  }
+  }
+  setTimeout(checkUserNameLocalStorage, 3000);
+};
+
 const logout = () => {
   localStorage.removeItem("registered");
   localStorage.removeItem("formData");
@@ -112,9 +126,11 @@ const logout = () => {
 onMounted(() => {
   getUserDataFromLocalStorage();
   checkLocalStorage();
+  checkUserNameLocalStorage()
 });
 
 watchEffect(() => {
   checkLocalStorage();
+  checkUserNameLocalStorage()
 });
 </script>
